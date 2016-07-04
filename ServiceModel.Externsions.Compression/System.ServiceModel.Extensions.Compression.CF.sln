@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System", "System", "{DF7B39E9-9B77-4060-BA3B-D4E7D0693C4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.ServiceModel.Extensions.Compression.CF", "System.ServiceModel.Extensions.Compression\System.ServiceModel.Extensions.Compression.CF.csproj", "{2C868923-3EAB-40DE-A02D-CAB3C1A27FB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.CF", "..\Systeml.CF\System.CF\System.CF.csproj", "{276CA465-2A1C-4ADB-BD9F-9BD54D39BA48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Runtime.Serialization.CF", "..\Systeml.CF\System.Runtime.Serialization.CF\System.Runtime.Serialization.CF.csproj", "{030C9B36-AB94-4676-B94F-CF7E29853325}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.ServiceModel.CF", "..\Systeml.CF\System.ServiceModel.CF\System.ServiceModel.CF.csproj", "{B5E3352D-AEDA-41E3-8306-301B11ED7CB6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Deploy debug|Any CPU = Deploy debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C868923-3EAB-40DE-A02D-CAB3C1A27FB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C868923-3EAB-40DE-A02D-CAB3C1A27FB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C868923-3EAB-40DE-A02D-CAB3C1A27FB6}.Deploy debug|Any CPU.ActiveCfg = Deploy debug|Any CPU
+		{2C868923-3EAB-40DE-A02D-CAB3C1A27FB6}.Deploy debug|Any CPU.Build.0 = Deploy debug|Any CPU
+		{2C868923-3EAB-40DE-A02D-CAB3C1A27FB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C868923-3EAB-40DE-A02D-CAB3C1A27FB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{276CA465-2A1C-4ADB-BD9F-9BD54D39BA48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{276CA465-2A1C-4ADB-BD9F-9BD54D39BA48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{276CA465-2A1C-4ADB-BD9F-9BD54D39BA48}.Deploy debug|Any CPU.ActiveCfg = Deploy debug|Any CPU
+		{276CA465-2A1C-4ADB-BD9F-9BD54D39BA48}.Deploy debug|Any CPU.Build.0 = Deploy debug|Any CPU
+		{276CA465-2A1C-4ADB-BD9F-9BD54D39BA48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{276CA465-2A1C-4ADB-BD9F-9BD54D39BA48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{030C9B36-AB94-4676-B94F-CF7E29853325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{030C9B36-AB94-4676-B94F-CF7E29853325}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{030C9B36-AB94-4676-B94F-CF7E29853325}.Deploy debug|Any CPU.ActiveCfg = Deploy debug|Any CPU
+		{030C9B36-AB94-4676-B94F-CF7E29853325}.Deploy debug|Any CPU.Build.0 = Deploy debug|Any CPU
+		{030C9B36-AB94-4676-B94F-CF7E29853325}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{030C9B36-AB94-4676-B94F-CF7E29853325}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5E3352D-AEDA-41E3-8306-301B11ED7CB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5E3352D-AEDA-41E3-8306-301B11ED7CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5E3352D-AEDA-41E3-8306-301B11ED7CB6}.Deploy debug|Any CPU.ActiveCfg = Deploy debug|Any CPU
+		{B5E3352D-AEDA-41E3-8306-301B11ED7CB6}.Deploy debug|Any CPU.Build.0 = Deploy debug|Any CPU
+		{B5E3352D-AEDA-41E3-8306-301B11ED7CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5E3352D-AEDA-41E3-8306-301B11ED7CB6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{276CA465-2A1C-4ADB-BD9F-9BD54D39BA48} = {DF7B39E9-9B77-4060-BA3B-D4E7D0693C4C}
+		{030C9B36-AB94-4676-B94F-CF7E29853325} = {DF7B39E9-9B77-4060-BA3B-D4E7D0693C4C}
+		{B5E3352D-AEDA-41E3-8306-301B11ED7CB6} = {DF7B39E9-9B77-4060-BA3B-D4E7D0693C4C}
+	EndGlobalSection
+EndGlobal

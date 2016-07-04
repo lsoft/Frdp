@@ -1,0 +1,182 @@
+﻿<Window x:Class="Frdp.Server.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Сервер Frdp"
+        xmlns:Wpf="clr-namespace:Frdp.Wpf;assembly=Frdp.Wpf"
+        Width="800"
+        Height="250"
+        
+        Closed="MainWindow_OnClosed"
+        >
+    <Window.Resources>
+        <Wpf:BoolInverter x:Key="BoolInverterKey"/>
+    </Window.Resources>
+    
+    <Grid
+        >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="5"
+            Text="Адрес сервера: "
+            />
+
+        <TextBox
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="5"
+            Text="{Binding Endpoint}"
+            IsEnabled="{Binding Path=IsListening, Converter={StaticResource BoolInverterKey}}"
+            />
+
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal"
+            >
+                
+            <Button
+                Margin="5"
+                Content="Начать сессию прослушивания"
+                Command="{Binding StartListeningCommand}"
+                IsEnabled="{Binding Path=IsListening, Converter={StaticResource BoolInverterKey}}"
+            />
+
+            <Button
+                Margin="5"
+                Content="Останов"
+                Command="{Binding StopListeningCommand}"
+                IsEnabled="{Binding Path=IsListening}"
+            />
+
+        </StackPanel>
+
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="5"
+            Text="Задержка между кадрами (мсек): "
+            />
+
+        <TextBox
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="5"
+            VerticalContentAlignment="Center"
+            Text="{Binding TimeoutBetweenFramesMsec, Mode=TwoWay}"
+            IsEnabled="{Binding Path=IsListening}"
+            />
+
+        <StackPanel
+            Grid.Row="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Orientation="Horizontal"
+            HorizontalAlignment="Left"
+            >
+                
+            <Label
+                Content="Фактор масштабирования картинки (1-4)."
+                />
+                
+            <Label
+                Content="По горизонтали: "
+                />
+
+            <TextBox
+                VerticalContentAlignment="Center"
+                Width="100"
+                Text="{Binding ScaleFactorX, Mode=TwoWay}"
+                IsEnabled="{Binding Path=IsListening}"
+                />
+
+            <Label
+                Content="По вертикали: "
+                />
+
+            <TextBox
+                VerticalContentAlignment="Center"
+                Width="100"
+                Text="{Binding ScaleFactorY, Mode=TwoWay}"
+                IsEnabled="{Binding Path=IsListening}"
+                />
+
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="4"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Orientation="Horizontal"
+            HorizontalAlignment="Left"
+            >
+
+            <Label
+                Content="Размер блока (16, 32, 64, 128):"
+                />
+
+            <Label
+                Content="По горизонтали: "
+                />
+
+            <TextBox
+                VerticalContentAlignment="Center"
+                Width="100"
+                Text="{Binding BlockWidth, Mode=TwoWay}"
+                IsEnabled="{Binding Path=IsListening}"
+                />
+
+            <Label
+                Content="По вертикали: "
+                />
+
+            <TextBox
+                VerticalContentAlignment="Center"
+                Width="100"
+                Text="{Binding BlockHeight, Mode=TwoWay}"
+                IsEnabled="{Binding Path=IsListening}"
+                />
+
+        </StackPanel>
+
+        <Button
+            Grid.Row="5"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Right"
+            Content="Изменить настройки"
+            Margin="5"
+            Command="{Binding PushCommand}"
+            IsEnabled="{Binding Path=IsListening}"
+            />
+
+        <TextBlock
+            Grid.Row="6"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Foreground="Red"
+            FontSize="24"
+            HorizontalAlignment="Center"
+            Text="{Binding ErrorMessage}"
+            />
+
+    </Grid>
+
+</Window>

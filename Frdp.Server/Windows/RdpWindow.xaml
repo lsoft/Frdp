@@ -1,0 +1,52 @@
+﻿<Window x:Class="Frdp.Server.Windows.RdpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Удаленный клиент"
+        Height="600"
+        Width="800"
+        
+        
+        Closing="RdpWindow_OnClosing"
+        Closed="RdpWindow_OnClosed"
+        KeyDown="Window_OnKeyDown"
+        KeyUp="Window_OnKeyUp"
+        Activated="RdpWindow_OnActivated"
+        Deactivated="RdpWindow_OnDeactivated"
+        >
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="B2VConverter"/>
+    </Window.Resources>
+    
+    <Grid
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        >
+        
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Text="Нет связи"
+            Foreground="Red"
+            FontSize="48"
+            Visibility="{Binding Path=IsConnectionDoesNotOccurs, Converter={StaticResource B2VConverter}}"
+            />
+
+        <Image
+            Margin="5"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Stretch="Fill"
+            RenderOptions.BitmapScalingMode="HighQuality"
+            Source="{Binding Desktop}"
+
+            MouseMove="UIElement_OnMouseMove"
+            MouseLeftButtonDown="UIElement_OnMouseLeftButtonDown"
+            MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp"
+            MouseRightButtonDown="UIElement_OnMouseRightButtonDown"
+            MouseRightButtonUp="UIElement_OnMouseRightButtonUp"
+            
+            
+            />
+
+    </Grid>
+</Window>

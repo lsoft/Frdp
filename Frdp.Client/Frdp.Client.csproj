@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\OpenCvSharp3-AnyCPU.3.1.0.20160316\build\OpenCvSharp3-AnyCPU.props" Condition="Exists('..\packages\OpenCvSharp3-AnyCPU.3.1.0.20160316\build\OpenCvSharp3-AnyCPU.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1B3580BC-70BF-4AF0-A354-8C72AE142F5F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Frdp.Client</RootNamespace>
+    <AssemblyName>Frdp.Client</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net40-client\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FrameworkExtensions, Version=1.0.0.926, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FrameworkExtensions.1.0.0.926\lib\net40\FrameworkExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net40\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Extensions.ContextPreservation, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.ContextPreservation.3.2.0.0\lib\net40\Ninject.Extensions.ContextPreservation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Factory, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.Factory.3.2.1.0\lib\net40\Ninject.Extensions.Factory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenCvSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.1.0.20160316\lib\net40\OpenCvSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenCvSharp.Blob, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.1.0.20160316\lib\net40\OpenCvSharp.Blob.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenCvSharp.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.1.0.20160316\lib\net40\OpenCvSharp.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenCvSharp.UserInterface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.1.0.20160316\lib\net40\OpenCvSharp.UserInterface.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Block\BlockDiffer.cs" />
+    <Compile Include="Block\Container\BlockContainer.cs" />
+    <Compile Include="Block\Container\Factory\BlockContainerFactory.cs" />
+    <Compile Include="Block\Container\Factory\IBlockContainerFactory.cs" />
+    <Compile Include="Block\Container\IBlockContainer.cs" />
+    <Compile Include="Block\Cutter\Cpp\CppCutter.cs" />
+    <Compile Include="Block\Cutter\Cpp\CppCutterFactory.cs" />
+    <Compile Include="Block\Cutter\Efficient\EfficientCutter.cs" />
+    <Compile Include="Block\Cutter\Efficient\EfficientCutterFactory.cs" />
+    <Compile Include="Block\Cutter\ICutter.cs" />
+    <Compile Include="Block\Cutter\ICutterFactory.cs" />
+    <Compile Include="Block\Cutter\Naive\NaiveCutter.cs" />
+    <Compile Include="Block\Cutter\Naive\NaiveCutterFactory.cs" />
+    <Compile Include="Block\Cutter\Settings\BlockSettings.cs" />
+    <Compile Include="Block\Cutter\Settings\IBlockSettings.cs" />
+    <Compile Include="Block\Cutter\Settings\IBlockSettingsFactory.cs" />
+    <Compile Include="Block\IBlockDiffer.cs" />
+    <Compile Include="Channel\IChannel.cs" />
+    <Compile Include="Channel\IChannelFactory.cs" />
+    <Compile Include="CommandContainer\CommandContainerFactory.cs" />
+    <Compile Include="CommandExecutor\ChangeClientSettingsCommandExecutor.cs" />
+    <Compile Include="CommandExecutor\CloseSessionCommandExecutor.cs" />
+    <Compile Include="CommandExecutor\ICommandExecutor.cs" />
+    <Compile Include="CommandExecutor\KeyboardButtonCommandExecutor.cs" />
+    <Compile Include="CommandExecutor\MouseButtonCommandExecutor.cs" />
+    <Compile Include="CommandExecutor\MousePositionCommandExecutor.cs" />
+    <Compile Include="CompositionRoot\NinjectCommandExecutor.cs" />
+    <Compile Include="CommandLineArgContainer.cs" />
+    <Compile Include="CompositionRoot\CommandExecutorModule.cs" />
+    <Compile Include="CompositionRoot\CommandModule.cs" />
+    <Compile Include="CompositionRoot\Root.cs" />
+    <Compile Include="ConnectionControl\ConnectionController.cs" />
+    <Compile Include="ConnectionControl\Connectivity.cs" />
+    <Compile Include="ConnectionControl\IConnectionController.cs" />
+    <Compile Include="CommandContainer\ICommandContainerFactory.cs" />
+    <Compile Include="CommandContainer\ICommandFactory.cs" />
+    <Compile Include="CompositionRoot\NinjectCommandFactory.cs" />
+    <Compile Include="ConnectionControl\IConnectivity.cs" />
+    <Compile Include="Crc\Cpp\CppCrcCalculator.cs" />
+    <Compile Include="Crc\Default\DefaultCrcCalculator.cs" />
+    <Compile Include="Crc\ICrcCalculator.cs" />
+    <Compile Include="Helpers\InvokeHelper.cs" />
+    <Compile Include="Helpers\OpenCVHelper.cs" />
+    <Compile Include="ScreenInfo\Factory\IScreenInfoFactory.cs" />
+    <Compile Include="ScreenInfo\Factory\PrimaryMonitorScreenInfoFactory.cs" />
+    <Compile Include="ScreenInfo\Factory\ZenMachineScreenInfoFactory.cs" />
+    <Compile Include="ScreenInfo\HdcScreenInfo.cs" />
+    <Compile Include="ScreenInfo\IScreenInfo.cs" />
+    <Compile Include="ScreenshotContainer\DefaultScreenshotContainer.cs" />
+    <Compile Include="ScreenshotContainer\Factory\DefaultScreenshotContainerFactory.cs" />
+    <Compile Include="ScreenshotContainer\Factory\IScreenshotContainerFactory.cs" />
+    <Compile Include="ScreenshotContainer\IScreenshotContainer.cs" />
+    <Compile Include="Helpers\SendInputProxy.cs" />
+    <Compile Include="Suicider\ApplicationSuicider.cs" />
+    <Compile Include="Suicider\FakeApplicationSuicider.cs" />
+    <Compile Include="Suicider\IApplicationSuicider.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Wcf\IBindingProvider.cs" />
+    <Compile Include="Wcf\SuiciderChannelFactory.cs" />
+    <Compile Include="Wcf\UnsecuredBindingProvider.cs" />
+    <Compile Include="Wcf\WcfChannel.cs" />
+    <Compile Include="Wcf\WcfChannelFactory.cs" />
+    <Page Include="Window\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Window\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Frdp.Common\Frdp.Common.csproj">
+      <Project>{1b3d58cb-35f6-4608-a3b3-8f640ff83edc}</Project>
+      <Name>Frdp.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Frdp.Wcf\Frdp.Wcf.csproj">
+      <Project>{abb0134c-47ae-43d3-8978-220e8bb508bd}</Project>
+      <Name>Frdp.Wcf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Frdp.Wpf\Frdp.Wpf.csproj">
+      <Project>{a1c7f641-f9c0-413e-a77e-0d51f252a2cf}</Project>
+      <Name>Frdp.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceModel.Externsions.Compression\System.ServiceModel.Extensions.Compression\System.ServiceModel.Extensions.Compression.csproj">
+      <Project>{9e96e405-2605-4fc5-8a12-b1f7d3407a81}</Project>
+      <Name>System.ServiceModel.Extensions.Compression</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy $(SolutionDir)$(ConfigurationName)\PerformanceLibrary.dll $(TargetDir) /Y
+</PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\OpenCvSharp3-AnyCPU.3.1.0.20160316\build\OpenCvSharp3-AnyCPU.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\OpenCvSharp3-AnyCPU.3.1.0.20160316\build\OpenCvSharp3-AnyCPU.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -141,6 +141,11 @@ namespace Frdp.Client.NetworkWorker.FileChannel
 
                                     //сохраняем полученные данные
                                     task.SaveReceivedPart(data);
+
+                                    if (tdc.IsNeedToDie)
+                                    {
+                                        return;
+                                    }
                                 }
                             }
 

@@ -10,7 +10,6 @@ namespace Frdp.Client.ViewModel
     public class FileViewModel : BaseViewModel
     {
         private readonly IFileTask _fileTask;
-        private readonly IFileTaskContainer _fileTaskContainer;
 
         public double Progress
         {
@@ -55,10 +54,7 @@ namespace Frdp.Client.ViewModel
                     _cancelCommand = new RelayCommand(
                         j =>
                         {
-                            //_fileTaskContainer.RemoveTask(_fileTask);
-                            _fileTask.ForceToClose();
-
-                            TaskCancelled = true;
+                            CancelTask();
 
                             OnPropertyChanged(string.Empty);
                             OnCommandInvalidate();
@@ -74,21 +70,15 @@ namespace Frdp.Client.ViewModel
 
         public FileViewModel(
             Dispatcher dispatcher,
-            IFileTask fileTask,
-            IFileTaskContainer fileTaskContainer
+            IFileTask fileTask
             ) : base(dispatcher)
         {
             if (fileTask == null)
             {
                 throw new ArgumentNullException("fileTask");
             }
-            if (fileTaskContainer == null)
-            {
-                throw new ArgumentNullException("fileTaskContainer");
-            }
 
             _fileTask = fileTask;
-            _fileTaskContainer = fileTaskContainer;
 
             _fileTask.TaskChangeEvent += FileTaskOnTaskChange;
         }
@@ -96,6 +86,8 @@ namespace Frdp.Client.ViewModel
         public void Close()
         {
             _fileTask.TaskChangeEvent -= FileTaskOnTaskChange;
+
+            CancelTask();
         }
 
         private void FileTaskOnTaskChange()
@@ -108,6 +100,13 @@ namespace Frdp.Client.ViewModel
                         OnCommandInvalidate();
                     })
                 );
+        }
+
+        private void CancelTask()
+        {
+            _fileTask.ForceToClose();
+
+            TaskCancelled = true;
         }
     }
 }

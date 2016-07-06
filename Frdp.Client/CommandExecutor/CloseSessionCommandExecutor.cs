@@ -1,5 +1,5 @@
 using System;
-using Frdp.Client.ConnectionControl;
+using Frdp.Client.Connection;
 using Frdp.Common.Command;
 
 namespace Frdp.Client.CommandExecutor

@@ -1,0 +1,97 @@
+﻿<Window x:Class="Frdp.Server.Windows.FileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Передача файлов" Height="200" Width="800" ResizeMode="NoResize"
+        Closed="FileWindow_OnClosed"
+        >
+    <Grid
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Center"
+        >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        
+        
+        <Label
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="5"
+            Content="Локальный пусть к файлу:"
+            />
+        
+        <TextBox
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="5"
+            VerticalContentAlignment="Center"
+            Text="{Binding LocalFilePath}"
+            />
+        
+        <Button
+            Grid.Row="0"
+            Grid.Column="2"
+            Margin="5"
+            Content="Выбрать файл..."
+            Command="{Binding OpenFileDialogCommand}"
+            />
+
+        <Label
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="5"
+            Content="Путь сохранения файла на ФС клиента:"
+            />
+
+        <TextBox
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="5"
+            VerticalContentAlignment="Center"
+            Text="{Binding RemoteFilePath}"
+            />
+
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Margin="5"
+            >
+            
+            <CheckBox
+                Margin="5"
+                Content="Создать папку, если ее нет"
+                IsChecked="{Binding ForceToCreateFolder}"
+                />
+
+            <CheckBox
+                Margin="5"
+                Content="Перезаписать файл, если он есть"
+                IsChecked="{Binding ForceToDeleteFile}"
+                />
+            
+        </StackPanel>
+        
+        <Button
+            Grid.Row="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            HorizontalAlignment="Right"
+            Margin="5"
+            Content="Создать задачу (нажимайте 1 раз!)"
+            Command="{Binding StartFileTaskCommand}"
+            />
+
+    </Grid>
+</Window>

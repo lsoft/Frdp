@@ -61,15 +61,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contract\Diff.cs" />
+    <Compile Include="Contract\FileChannel\IWcfFileChannel.cs" />
+    <Compile Include="Contract\MainChannel\Diff.cs" />
     <Compile Include="Endpoint\EndpointContainer.cs" />
     <Compile Include="Endpoint\IEndpointContainer.cs" />
     <Compile Include="Endpoint\IEndpointProvider.cs" />
-    <Compile Include="IWcfChannel.cs" />
-    <Compile Include="Contract\Packet.cs" />
+    <Compile Include="Contract\MainChannel\IWcfMainChannel.cs" />
+    <Compile Include="Contract\MainChannel\Packet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Contract\WcfClientSettings.cs" />
-    <Compile Include="Contract\ServerCommands.cs" />
+    <Compile Include="Contract\MainChannel\WcfClientSettings.cs" />
+    <Compile Include="Contract\MainChannel\ServerCommands.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Frdp.Client.ConnectionControl;
+using Frdp.Client.Connection;
 using Frdp.Wcf;
 using Frdp.Wcf.Endpoint;
 using Frdp.Wpf;

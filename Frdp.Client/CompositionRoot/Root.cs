@@ -3,6 +3,7 @@ using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Extensions.Compression;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using System.Xml;
@@ -13,16 +14,21 @@ using Frdp.Client.Block.Container.Factory;
 using Frdp.Client.Block.Cutter;
 using Frdp.Client.Block.Cutter.Cpp;
 using Frdp.Client.Block.Cutter.Settings;
+using Frdp.Client.Channel;
+using Frdp.Client.Channel.MainChannel;
 using Frdp.Client.CommandContainer;
-using Frdp.Client.ConnectionControl;
 using Frdp.Client.Crc;
 using Frdp.Client.Crc.Cpp;
+using Frdp.Client.FileTransfer;
+using Frdp.Client.FileTransfer.Container;
+using Frdp.Client.NetworkWorker.FileChannel;
 using Frdp.Client.ScreenInfo.Factory;
 using Frdp.Client.ScreenshotContainer.Factory;
 using Frdp.Client.Suicider;
 using Frdp.Client.ViewModel;
 using Frdp.Client.Wcf;
-using Frdp.Client.Window;
+using Frdp.Client.Wcf.MainChannel;
+using Frdp.Client.Windows;
 using Frdp.Common;
 using Frdp.Common.Block.Diff;
 using Frdp.Common.Settings;
@@ -30,7 +36,6 @@ using Frdp.Wcf;
 using Frdp.Wcf.Endpoint;
 using Ninject;
 using Ninject.Extensions.Factory;
-using IChannelFactory = Frdp.Client.Channel.IChannelFactory;
 
 namespace Frdp.Client.CompositionRoot
 {
@@ -121,16 +126,6 @@ namespace Frdp.Client.CompositionRoot
                 ;
 
             _kernel
-                .Bind<IConnectionController>()
-                .To<ConnectionController>()
-                .InSingletonScope()
-                .WithConstructorArgument(
-                    "isConnectionProceed",
-                    _clac.IsDefaultConnectionOnline
-                    )
-                ;
-
-            _kernel
                 .Bind<Dispatcher>()
                 .ToConstant(App.Current.Dispatcher)
                 .InSingletonScope()
@@ -202,79 +197,6 @@ namespace Frdp.Client.CompositionRoot
                 ;
 
             _kernel
-                .Bind<CustomBinding>()
-                .ToMethod(
-                    c =>
-                    {
-                        var tcpTransport = new TcpTransportBindingElement();
-                        tcpTransport.MaxReceivedMessageSize = 1024 * 1024 * 10;
-                        tcpTransport.MaxBufferSize = 1024 * 1024 * 10;
-                        tcpTransport.MaxBufferPoolSize = 1024 * 1024 * 10;
-                        tcpTransport.TransferMode = TransferMode.Buffered;
-
-                        var messageEncoder = new BinaryMessageEncodingBindingElement();
-                        messageEncoder.ReaderQuotas = XmlDictionaryReaderQuotas.Max;
-
-
-                        var compressionElement = new CompressionMessageEncodingBindingElement(
-                            messageEncoder,
-                            CompressionAlgorithm.GZip
-                            );
-
-                        var binding = new CustomBinding(
-                            compressionElement,
-                            tcpTransport
-                            );
-
-                        //binding.SendTimeout = new TimeSpan(0, 5, 0);
-                        //binding.ReceiveTimeout = new TimeSpan(0, 5, 0);
-                        //binding.OpenTimeout = new TimeSpan(0, 5, 0);
-                        //binding.CloseTimeout = new TimeSpan(0, 5, 0);
-
-                        return binding;
-                    })
-                .InSingletonScope()
-                ;
-
-            //_kernel
-            //    .Bind<IChannel>()
-            //    .To<WcfChannel>()
-            //    //not a singleton!
-            //    .WithConstructorArgument(
-            //        "endpointAddress",
-            //        "net.tcp://localhost:3310/Frdp"
-            //        )
-            //    ;
-
-            _kernel
-                .Bind<IChannelFactory>()
-                .To<WcfChannelFactory>()
-                .WhenInjectedExactlyInto<SuiciderChannelFactory>()
-                .InSingletonScope()
-                ;
-
-            _kernel
-                .Bind<IChannelFactory>()
-                .To<SuiciderChannelFactory>()
-                .InSingletonScope()
-                ;
-
-            _kernel
-                .Bind<IEndpointContainer, IEndpointProvider>()
-                .To<EndpointContainer>()
-                .InSingletonScope()
-                .WithConstructorArgument(
-                    "endpointAddress",
-                    _clac.IsConnectionAddressExists ? _clac.ConnectionAddress : "net.tcp://localhost:3310/Frdp")
-                ;
-
-            _kernel
-                .Bind<IConnectivity>()
-                .To<Connectivity>()
-                .InSingletonScope()
-                ;
-
-            _kernel
                 .Bind<ICommandContainerFactory>()
                 .To<CommandContainerFactory>()
                 .InSingletonScope()
@@ -292,15 +214,59 @@ namespace Frdp.Client.CompositionRoot
                 .InSingletonScope()
                 ;
 
+            _kernel
+                .Bind<IFileTaskContainer>()
+                .To<FileTaskContainer>()
+                .InSingletonScope()
+                ;
+
+            _kernel
+                .Bind<IFileChannelWorker>()
+                .To<FileChannelWorker>()
+                .InSingletonScope()
+                ;
+
+            _kernel
+                .Bind<IFileTaskAdder>()
+                .To<NInjectFileTaskAdder>()
+                .InSingletonScope()
+                ;
+
             var commandModule = new CommandModule();
             _kernel.Load(commandModule);
 
             var commandExecutorModule = new CommandExecutorModule();
             _kernel.Load(commandExecutorModule);
 
+            var networkModule = new NetworkModule(
+                _clac
+                );
+            _kernel.Load(networkModule);
+
             _logger = _kernel.Get<ILogger>();
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+
+            //var t = new Thread(
+            //    () =>
+            //    {
+            //        Thread.Sleep(5000);
+
+            //        var logger = _kernel.Get<ILogger>();
+            //        var adder = _kernel.Get<IFileTaskAdder>();
+
+            //        var ft = new FileTask(
+            //            @"C:\projects\git\1 Frdp.7z",
+            //            @"C:\projects\git\1 Frdp {received}.7z",
+            //            163686287,
+            //            true,
+            //            true,
+            //            logger
+            //            );
+
+            //        adder.AddTask(ft);
+            //    });
+            //t.Start();
         }
 
         public void Dispose()

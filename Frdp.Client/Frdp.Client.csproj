@@ -138,8 +138,10 @@
     <Compile Include="Block\Cutter\Settings\IBlockSettings.cs" />
     <Compile Include="Block\Cutter\Settings\IBlockSettingsFactory.cs" />
     <Compile Include="Block\IBlockDiffer.cs" />
-    <Compile Include="Channel\IChannel.cs" />
-    <Compile Include="Channel\IChannelFactory.cs" />
+    <Compile Include="Channel\FileChannel\IFileChannel.cs" />
+    <Compile Include="Channel\FileChannel\IFileChannelFactory.cs" />
+    <Compile Include="Channel\MainChannel\IMainChannel.cs" />
+    <Compile Include="Channel\MainChannel\IMainChannelFactory.cs" />
     <Compile Include="CommandContainer\CommandContainerFactory.cs" />
     <Compile Include="CommandExecutor\ChangeClientSettingsCommandExecutor.cs" />
     <Compile Include="CommandExecutor\CloseSessionCommandExecutor.cs" />
@@ -147,21 +149,32 @@
     <Compile Include="CommandExecutor\KeyboardButtonCommandExecutor.cs" />
     <Compile Include="CommandExecutor\MouseButtonCommandExecutor.cs" />
     <Compile Include="CommandExecutor\MousePositionCommandExecutor.cs" />
+    <Compile Include="CommandExecutor\StartFileTaskCommandExecutor.cs" />
+    <Compile Include="CompositionRoot\NetworkModule.cs" />
     <Compile Include="CompositionRoot\NinjectCommandExecutor.cs" />
     <Compile Include="CommandLineArgContainer.cs" />
     <Compile Include="CompositionRoot\CommandExecutorModule.cs" />
     <Compile Include="CompositionRoot\CommandModule.cs" />
     <Compile Include="CompositionRoot\Root.cs" />
-    <Compile Include="ConnectionControl\ConnectionController.cs" />
-    <Compile Include="ConnectionControl\Connectivity.cs" />
-    <Compile Include="ConnectionControl\IConnectionController.cs" />
+    <Compile Include="Connection\ConnectionController.cs" />
+    <Compile Include="NetworkWorker\MainChannel\MainChannelWorker.cs" />
+    <Compile Include="Connection\IConnectionController.cs" />
     <Compile Include="CommandContainer\ICommandContainerFactory.cs" />
     <Compile Include="CommandContainer\ICommandFactory.cs" />
     <Compile Include="CompositionRoot\NinjectCommandFactory.cs" />
-    <Compile Include="ConnectionControl\IConnectivity.cs" />
+    <Compile Include="NetworkWorker\MainChannel\IMainChannelWorker.cs" />
     <Compile Include="Crc\Cpp\CppCrcCalculator.cs" />
     <Compile Include="Crc\Default\DefaultCrcCalculator.cs" />
     <Compile Include="Crc\ICrcCalculator.cs" />
+    <Compile Include="FileTransfer\FileTask.cs" />
+    <Compile Include="FileTransfer\Container\FileTaskContainer.cs" />
+    <Compile Include="NetworkWorker\FileChannel\FileChannelWorker.cs" />
+    <Compile Include="FileTransfer\IFileTask.cs" />
+    <Compile Include="FileTransfer\IFileTaskAdder.cs" />
+    <Compile Include="FileTransfer\Container\IFileTaskContainer.cs" />
+    <Compile Include="FileTransfer\IFileTaskIdentifier.cs" />
+    <Compile Include="NetworkWorker\FileChannel\IFileChannelWorker.cs" />
+    <Compile Include="CompositionRoot\NInjectFileTaskAdder.cs" />
     <Compile Include="Helpers\InvokeHelper.cs" />
     <Compile Include="Helpers\OpenCVHelper.cs" />
     <Compile Include="ScreenInfo\Factory\IScreenInfoFactory.cs" />
@@ -177,13 +190,21 @@
     <Compile Include="Suicider\ApplicationSuicider.cs" />
     <Compile Include="Suicider\FakeApplicationSuicider.cs" />
     <Compile Include="Suicider\IApplicationSuicider.cs" />
+    <Compile Include="ViewModel\FileViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Wcf\FileChannel\FileBindingProvider.cs" />
+    <Compile Include="Wcf\FileChannel\WcfFileChannel.cs" />
+    <Compile Include="Wcf\FileChannel\WcfFileChannelFactory.cs" />
     <Compile Include="Wcf\IBindingProvider.cs" />
-    <Compile Include="Wcf\SuiciderChannelFactory.cs" />
-    <Compile Include="Wcf\UnsecuredBindingProvider.cs" />
-    <Compile Include="Wcf\WcfChannel.cs" />
-    <Compile Include="Wcf\WcfChannelFactory.cs" />
-    <Page Include="Window\MainWindow.xaml">
+    <Compile Include="Wcf\MainChannel\SuiciderMainChannelFactory.cs" />
+    <Compile Include="Wcf\MainChannel\MainBindingProvider.cs" />
+    <Compile Include="Wcf\MainChannel\WcfMainChannel.cs" />
+    <Compile Include="Wcf\MainChannel\WcfMainChannelFactory.cs" />
+    <Page Include="Windows\FileWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -191,7 +212,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Window\MainWindow.xaml.cs">
+    <Compile Include="Windows\FileWindow.xaml.cs">
+      <DependentUpon>FileWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

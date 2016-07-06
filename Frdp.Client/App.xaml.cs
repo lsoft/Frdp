@@ -3,9 +3,11 @@ using System.Linq;
 using System.Windows;
 using Frdp.Client.CommandExecutor;
 using Frdp.Client.CompositionRoot;
-using Frdp.Client.ConnectionControl;
+using Frdp.Client.FileTransfer;
+using Frdp.Client.NetworkWorker.FileChannel;
+using Frdp.Client.NetworkWorker.MainChannel;
 using Frdp.Client.Suicider;
-using Frdp.Client.Window;
+using Frdp.Client.Windows;
 using Frdp.Common.Command;
 using Application = System.Windows.Application;
 
@@ -37,7 +39,7 @@ namespace Frdp.Client
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            var connectivity = _root.Get<IConnectivity>();
+            var connectivity = _root.Get<IMainChannelWorker>();
             connectivity.AsyncStart();
 
             var suicider = _root.Get<IApplicationSuicider>();
@@ -46,12 +48,17 @@ namespace Frdp.Client
             var mainWindow = _root.Get<MainWindow>();
             this.MainWindow = mainWindow;
 
+            var fileRetriever = _root.Get<IFileChannelWorker>();
+            fileRetriever.AsyncStart();
             mainWindow.Show();
         }
 
         private void App_OnExit(object sender, ExitEventArgs e)
         {
-            var connectivity = _root.Get<IConnectivity>();
+            var fileRetriever = _root.Get<IFileChannelWorker>();
+            fileRetriever.SyncStop();
+
+            var connectivity = _root.Get<IMainChannelWorker>();
             connectivity.SyncStop();
 
             _root.Dispose();

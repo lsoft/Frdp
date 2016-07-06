@@ -48,6 +48,9 @@ namespace Frdp.Server
             var rdpWindow = _root.Get<RdpWindow>();
             rdpWindow.Show();
 
+            var fileWindow = _root.Get<FileWindow>();
+            fileWindow.Show();
+
             mainWindow.Show();
         }
 

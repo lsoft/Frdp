@@ -112,25 +112,38 @@
     <Compile Include="AppController\IApplicationController.cs" />
     <Compile Include="Bitmap\BitmapConversion.cs" />
     <Compile Include="Bitmap\BitmapSourceWrapper.cs" />
+    <Compile Include="CompositionRoot\GuiModule.cs" />
+    <Compile Include="CompositionRoot\NinjectExtender.cs" />
     <Compile Include="CompositionRoot\Root.cs" />
     <Compile Include="Bitmap\DirectBitmap.cs" />
     <Compile Include="Bitmap\DirectBitmapContainer.cs" />
+    <Compile Include="CompositionRoot\NetworkModule.cs" />
     <Compile Include="InterceptKeys.cs" />
     <Compile Include="Keyboard\ISpecialButtonInterceptor.cs" />
     <Compile Include="Keyboard\ISpecialButtonInterceptorFactory.cs" />
     <Compile Include="Applier\IDiffApplier.cs" />
     <Compile Include="Applier\ToBitmapDiffApplier.cs" />
+    <Compile Include="ViewModel\FileViewModel.cs" />
+    <Compile Include="Wcf\FileChannel\WcfFileBehaviour.cs" />
+    <Compile Include="Wcf\FileChannel\WcfFileFactory.cs" />
+    <Compile Include="Wcf\FileChannel\WcfFileListener.cs" />
+    <Compile Include="Wcf\FileChannel\WcfFileService.cs" />
+    <Compile Include="Wcf\GateListener.cs" />
     <Compile Include="Wcf\IListener.cs" />
     <Compile Include="Wcf\IWCFListener.cs" />
-    <Compile Include="Wcf\Result\IWcfResultFactory.cs" />
+    <Compile Include="Wcf\MainChannel\Result\IWcfResultFactory.cs" />
     <Compile Include="Wcf\Listener.cs" />
-    <Compile Include="Wcf\WCFBehaviour.cs" />
-    <Compile Include="Wcf\WCFFactory.cs" />
-    <Compile Include="Wcf\WCFListener.cs" />
-    <Compile Include="Wcf\Result\WcfResultFactory.cs" />
-    <Compile Include="Wcf\WCFService.cs" />
+    <Compile Include="Wcf\MainChannel\WcfMainBehaviour.cs" />
+    <Compile Include="Wcf\MainChannel\WcfMainFactory.cs" />
+    <Compile Include="Wcf\MainChannel\WcfMainListener.cs" />
+    <Compile Include="Wcf\MainChannel\Result\WcfResultFactory.cs" />
+    <Compile Include="Wcf\MainChannel\WcfMainService.cs" />
     <Compile Include="Keyboard\SpecialButtonInterceptor.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Page Include="Windows\FileWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\RdpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -144,6 +157,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModel\RdpViewModel.cs" />
+    <Compile Include="Windows\FileWindow.xaml.cs">
+      <DependentUpon>FileWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\RdpWindow.xaml.cs">
       <DependentUpon>RdpWindow.xaml</DependentUpon>
     </Compile>
@@ -198,6 +214,7 @@
       <Name>System.ServiceModel.Extensions.Compression</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy $(SolutionDir)$(ConfigurationName)\PerformanceLibrary.dll $(TargetDir) /Y</PostBuildEvent>

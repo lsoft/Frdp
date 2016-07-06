@@ -1,4 +1,5 @@
 ﻿using System;
+using Frdp.Client.FileTransfer.Container;
 using Frdp.Common.Command;
 using Frdp.Common.Settings;
 

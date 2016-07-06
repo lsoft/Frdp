@@ -105,6 +105,7 @@
     <Compile Include="Command\KeyboardButtonCommand.cs" />
     <Compile Include="Command\MouseButtonCommand.cs" />
     <Compile Include="Command\MousePositionCommand.cs" />
+    <Compile Include="Command\StartFileTaskCommand.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="Settings\ClientSettings.cs" />

@@ -11,20 +11,19 @@ using Frdp.Server.AppController;
 using Frdp.Server.Applier;
 using Frdp.Server.Bitmap;
 using Frdp.Server.Keyboard;
-using Frdp.Server.ViewModel;
 using Frdp.Server.Wcf;
-using Frdp.Server.Wcf.Result;
-using Frdp.Server.Windows;
+using Frdp.Server.Wcf.FileChannel;
+using Frdp.Server.Wcf.MainChannel;
+using Frdp.Server.Wcf.MainChannel.Result;
 using Frdp.Wcf;
 using Frdp.Wcf.Endpoint;
 using Frdp.Wpf;
 using Ninject;
 using Ninject.Extensions.Factory;
-using Ninject.Modules;
 
 namespace Frdp.Server.CompositionRoot
 {
-    public class Root : IDisposable
+    internal class Root : IDisposable
     {
         private readonly StandardKernel _kernel = new StandardKernel();
 
@@ -65,12 +64,6 @@ namespace Frdp.Server.CompositionRoot
                 ;
 
             _kernel
-                .Bind<IEndpointContainer, IEndpointProvider>()
-                .To<EndpointContainer>()
-                .InSingletonScope()
-                ;
-
-            _kernel
                 .Bind<DirectBitmapContainer>()
                 .To<DirectBitmapContainer>()
                 .InSingletonScope()
@@ -83,56 +76,8 @@ namespace Frdp.Server.CompositionRoot
                 ;
 
             _kernel
-                .Bind<IWCFListener>()
-                .To<WCFListener>()
-                //not a singleton
-                ;
-
-            _kernel
-                .Bind<IServiceBehavior>()
-                .To<WCFBehaviour>()
-                .InSingletonScope()
-                ;
-
-            _kernel
                 .Bind<Dispatcher>()
                 .ToConstant(App.Current.Dispatcher)
-                .InSingletonScope()
-                ;
-
-            _kernel
-                .Bind<MainWindow>()
-                .To<MainWindow>()
-                .InSingletonScope()
-                ;
-
-            _kernel
-                .Bind<MainViewModel>()
-                .To<MainViewModel>()
-                .InSingletonScope()
-                ;
-
-            _kernel
-                .Bind<RdpWindow>()
-                .To<RdpWindow>()
-                .InSingletonScope()
-                ;
-
-            _kernel
-                .Bind<RdpViewModel>()
-                .To<RdpViewModel>()
-                .InSingletonScope()
-                ;
-
-            _kernel
-                .Bind<IListener>()
-                .To<Listener>()
-                .InSingletonScope()
-                ;
-
-            _kernel
-                .Bind<IWcfResultFactory>()
-                .To<WcfResultFactory>()
                 .InSingletonScope()
                 ;
 
@@ -159,6 +104,12 @@ namespace Frdp.Server.CompositionRoot
                 .To<ApplicationController>()
                 .InSingletonScope()
                 ;
+
+            var nm = new NetworkModule();
+            _kernel.Load(nm);
+
+            var guim = new GuiModule();
+            _kernel.Load(guim);
 
             _logger = _kernel.Get<ILogger>();
 

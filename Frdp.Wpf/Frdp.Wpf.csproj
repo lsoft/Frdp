@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="BoolInverter.cs" />
+    <Compile Include="BoolToColorConverter.cs" />
     <Compile Include="CommandReference.cs" />
     <Compile Include="IConsumePassword.cs" />
     <Compile Include="IViewModelParent.cs" />

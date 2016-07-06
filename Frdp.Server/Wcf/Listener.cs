@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Linq;
+using Castle.Core.Internal;
+using Castle.Core.Logging;
 using Frdp.Wcf;
 using Frdp.Wcf.Endpoint;
 
@@ -15,7 +19,7 @@ namespace Frdp.Server.Wcf
 
 
         public Listener(
-            Func<IWCFListener>  listenerFactory,
+            Func<IWCFListener> listenerFactory,
             IEndpointProvider endpointContainer
             )
         {

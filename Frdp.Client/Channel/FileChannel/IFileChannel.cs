@@ -12,5 +12,11 @@ namespace Frdp.Client.Channel.FileChannel
             long offset,
             int length
             );
+
+        void AppendData(
+            string filepath,
+            bool forceToCreateFolder,
+            byte[] data
+            );
     }
 }

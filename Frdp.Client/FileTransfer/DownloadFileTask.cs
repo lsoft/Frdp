@@ -4,28 +4,38 @@ using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Frdp.Client.Channel.FileChannel;
 using Frdp.Common;
 
 namespace Frdp.Client.FileTransfer
 {
-    public class FileTask : IFileTask
+    public class DownloadFileTask : IFileTask
     {
-        private readonly ILogger _logger;
+        private const int DefaultPartLength = 65536;
 
-        public delegate void TaskChangedDelegate();
+        private readonly ILogger _logger;
 
         private bool _forceToClose = false;
 
-        public string RemoteFilePathInvariant
+        public bool IsDownloadTask
         {
             get
             {
                 return
-                    RemoteFilePath.ToLowerInvariant();
+                    true;
             }
         }
 
-        public string RemoteFilePath
+        public string ServerFilePathInvariant
+        {
+            get
+            {
+                return
+                    ServerFilePath.ToLowerInvariant();
+            }
+        }
+
+        public string ServerFilePath
         {
             get;
             private set;
@@ -71,8 +81,8 @@ namespace Frdp.Client.FileTransfer
 
         public event TaskChangedDelegate TaskChangeEvent;
 
-        public FileTask(
-            string remoteFilePath, 
+        public DownloadFileTask(
+            string serverFilePath, 
             string localFilePath, 
             long totalFileSize,
             bool forceToCreateFolder,
@@ -80,9 +90,9 @@ namespace Frdp.Client.FileTransfer
             ILogger logger
             )
         {
-            if (remoteFilePath == null)
+            if (serverFilePath == null)
             {
-                throw new ArgumentNullException("remoteFilePath");
+                throw new ArgumentNullException("serverFilePath");
             }
             if (localFilePath == null)
             {
@@ -93,7 +103,7 @@ namespace Frdp.Client.FileTransfer
                 throw new ArgumentNullException("logger");
             }
 
-            RemoteFilePath = remoteFilePath;
+            ServerFilePath = serverFilePath;
             LocalFilePath = localFilePath;
             TotalFileSize = totalFileSize;
             CurrentFileSize = 0L;
@@ -114,32 +124,6 @@ namespace Frdp.Client.FileTransfer
             {
                 SafelyDelete();
             }
-        }
-
-        public void SaveReceivedPart(
-            byte[] data
-            )
-        {
-            using (var fs = new FileStream(LocalFilePath, FileMode.Append, FileAccess.Write))
-            {
-                fs.Write(data, 0, data.Length);
-
-                fs.Flush();
-            }
-
-            CurrentFileSize += data.Length;
-
-            OnTaskChange();
-        }
-
-        public int GetPartLength(
-            int defaultLength
-            )
-        {
-            var diff = (int)(TotalFileSize - CurrentFileSize);
-
-            return
-                Math.Min(diff, defaultLength);
         }
 
         public void SafelyDelete(
@@ -166,6 +150,23 @@ namespace Frdp.Client.FileTransfer
             this._forceToClose = true;
         }
 
+        public void ProcessOneIteration(IFileChannel channel)
+        {
+            //определяем размер блока, который мы потребуем и смещение от начала
+            var offset = this.CurrentFileSize;
+            var size = this.GetPartLength(DefaultPartLength);
+
+            //доставляем данные
+            var data = channel.GetData(
+                this.ServerFilePath,
+                offset,
+                size
+                );
+
+            //сохраняем полученные данные
+            this.SaveReceivedPart(data);
+        }
+
         protected virtual void OnTaskChange()
         {
             TaskChangedDelegate handler = TaskChangeEvent;
@@ -173,6 +174,32 @@ namespace Frdp.Client.FileTransfer
             {
                 handler();
             }
+        }
+
+        private int GetPartLength(
+            int defaultLength
+            )
+        {
+            var diff = (int)(TotalFileSize - CurrentFileSize);
+
+            return
+                Math.Min(diff, defaultLength);
+        }
+
+        private void SaveReceivedPart(
+            byte[] data
+            )
+        {
+            using (var fs = new FileStream(LocalFilePath, FileMode.Append, FileAccess.Write))
+            {
+                fs.Write(data, 0, data.Length);
+
+                fs.Flush();
+            }
+
+            CurrentFileSize += data.Length;
+
+            OnTaskChange();
         }
 
     }

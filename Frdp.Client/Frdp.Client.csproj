@@ -157,6 +157,8 @@
     <Compile Include="CompositionRoot\CommandModule.cs" />
     <Compile Include="CompositionRoot\Root.cs" />
     <Compile Include="Connection\ConnectionController.cs" />
+    <Compile Include="FileTransfer\TaskChangedDelegate.cs" />
+    <Compile Include="FileTransfer\UploadFileTask.cs" />
     <Compile Include="NetworkWorker\MainChannel\MainChannelWorker.cs" />
     <Compile Include="Connection\IConnectionController.cs" />
     <Compile Include="CommandContainer\ICommandContainerFactory.cs" />
@@ -166,7 +168,7 @@
     <Compile Include="Crc\Cpp\CppCrcCalculator.cs" />
     <Compile Include="Crc\Default\DefaultCrcCalculator.cs" />
     <Compile Include="Crc\ICrcCalculator.cs" />
-    <Compile Include="FileTransfer\FileTask.cs" />
+    <Compile Include="FileTransfer\DownloadFileTask.cs" />
     <Compile Include="FileTransfer\Container\FileTaskContainer.cs" />
     <Compile Include="NetworkWorker\FileChannel\FileChannelWorker.cs" />
     <Compile Include="FileTransfer\IFileTask.cs" />

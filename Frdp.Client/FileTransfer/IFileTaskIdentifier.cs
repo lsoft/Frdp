@@ -2,12 +2,12 @@ namespace Frdp.Client.FileTransfer
 {
     public interface IFileTaskIdentifier
     {
-        string RemoteFilePathInvariant
+        string ServerFilePathInvariant
         {
             get;
         }
 
-        string RemoteFilePath
+        string ServerFilePath
         {
             get;
         }

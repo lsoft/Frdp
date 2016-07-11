@@ -29,7 +29,7 @@ namespace Frdp.Client.FileTransfer.Container
             {
                 if (_tasks.Find(j =>
                     j.IsAlive
-                    && j.RemoteFilePathInvariant == task.RemoteFilePathInvariant
+                    && j.ServerFilePathInvariant == task.ServerFilePathInvariant
                     && j.LocalFilePathInvariant == task.LocalFilePathInvariant
                     ) != null)
                 {

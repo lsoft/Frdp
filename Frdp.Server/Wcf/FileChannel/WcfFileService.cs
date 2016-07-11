@@ -49,5 +49,45 @@ namespace Frdp.Server.Wcf.FileChannel
             return
                 result;
         }
+
+        public void AppendData(
+            string filepath,
+            bool forceToCreateFolder,
+            byte[] data
+            )
+        {
+            if (forceToCreateFolder)
+            {
+                var fi = new FileInfo(filepath);
+                var d = fi.Directory.FullName;
+
+                if (!Directory.Exists(d))
+                {
+                    Directory.CreateDirectory(d);
+                }
+            }
+
+            try
+            {
+                FileStream fs;
+                if (!File.Exists(filepath))
+                {
+                    fs = File.Create(filepath);
+                }
+                else
+                {
+                    fs = new FileStream(filepath, FileMode.Append, FileAccess.Write);
+                }
+
+                using (fs)
+                {
+                    fs.Write(data, 0, data.Length);
+                }
+            }
+            catch (Exception excp)
+            {
+                _logger.LogException(excp);
+            }
+        }
     }
 }

@@ -6,6 +6,17 @@ namespace Frdp.Wcf.Contract.FileChannel
     public interface IWcfFileChannel
     {
         [OperationContract]
-        byte[] GetData(string filepath, long offset, int length);
+        byte[] GetData(
+            string filepath, 
+            long offset, 
+            int length
+            );
+
+        [OperationContract]
+        void AppendData(
+            string filepath,
+            bool forceToCreateFolder,
+            byte[] data
+            );
     }
 }

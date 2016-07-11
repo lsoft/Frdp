@@ -2,8 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Wpf="clr-namespace:Frdp.Wpf;assembly=Frdp.Wpf"
-        Title="Получение файла" Height="200" Width="800"
-        Closed="FileWindow_OnClosed"
+        Title="{Binding Header}" Height="200" Width="800"
+        Closed="FileWindow_OnClosed" WindowStyle="ToolWindow"
         >
     <Window.Resources>
         <Wpf:BoolToColorConverter TrueBrush="Red" FalseBrush="ForestGreen" x:Key="BoolToColorConverterKey"/>

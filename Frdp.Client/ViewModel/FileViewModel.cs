@@ -11,6 +11,15 @@ namespace Frdp.Client.ViewModel
     {
         private readonly IFileTask _fileTask;
 
+        public string Header
+        {
+            get
+            {
+                return
+                    _fileTask.IsDownloadTask ? "Получение файла " : "Отправка файла";
+            }
+        }
+
         public double Progress
         {
             get
@@ -25,7 +34,7 @@ namespace Frdp.Client.ViewModel
             get
             {
                 return
-                    _fileTask.RemoteFilePath;
+                    _fileTask.ServerFilePath;
             }
         }
 

@@ -5,6 +5,12 @@ namespace Frdp.Common.Command
 {
     public class StartFileTaskCommand : BaseCommand
     {
+        public bool DownloadFile
+        {
+            get;
+            private set;
+        }
+
         public string ServerFilePath
         {
             get;
@@ -45,6 +51,7 @@ namespace Frdp.Common.Command
         }
 
         public StartFileTaskCommand(
+            bool downloadFile,
             string serverFilePath, 
             string clientFilePath, 
             long totalFileSize,
@@ -52,6 +59,7 @@ namespace Frdp.Common.Command
             bool forceToDeleteFile
             )
         {
+            DownloadFile = downloadFile;
             ServerFilePath = serverFilePath;
             ClientFilePath = clientFilePath;
             TotalFileSize = totalFileSize;
@@ -68,6 +76,7 @@ namespace Frdp.Common.Command
                 throw new ArgumentNullException("node");
             }
 
+            DownloadFile = bool.Parse(node.SelectSingleNode("downloadfile").InnerText);
             ServerFilePath = node.SelectSingleNode("serverFilePath").InnerText;
             ClientFilePath = node.SelectSingleNode("clientFilePath").InnerText;
             TotalFileSize = long.Parse(node.SelectSingleNode("totalFileSize").InnerText);
@@ -87,6 +96,7 @@ namespace Frdp.Common.Command
 
             node.InnerXml = string.Format(
                 XmlBody,
+                DownloadFile,
                 ServerFilePath,
                 ClientFilePath,
                 TotalFileSize,
@@ -102,7 +112,8 @@ namespace Frdp.Common.Command
         {
             return
                 string.Format(
-                    "serverFilePath {0}, clientFilePath {1}, TotalFileSize {2}, ForceToCreateFolder {3}, ForceToDeleteFile {4}",
+                    "DownloadFile {0}, serverFilePath {1}, clientFilePath {2}, TotalFileSize {3}, ForceToCreateFolder {4}, ForceToDeleteFile {5}",
+                    DownloadFile,
                     ServerFilePath,
                     ClientFilePath,
                     TotalFileSize,
@@ -112,11 +123,12 @@ namespace Frdp.Common.Command
         }
 
         private const string XmlBody = @"
-<serverFilePath>{0}</serverFilePath>
-<clientFilePath>{1}</clientFilePath>
-<totalFileSize>{2}</totalFileSize>
-<forceToCreateFolder>{3}</forceToCreateFolder>
-<forceToDeleteFile>{4}</forceToDeleteFile>
+<downloadfile>{0}</downloadfile>
+<serverFilePath>{1}</serverFilePath>
+<clientFilePath>{2}</clientFilePath>
+<totalFileSize>{3}</totalFileSize>
+<forceToCreateFolder>{4}</forceToCreateFolder>
+<forceToDeleteFile>{5}</forceToDeleteFile>
 ";
 
     }

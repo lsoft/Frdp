@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Frdp.Common.Command;
@@ -13,6 +14,8 @@ namespace Frdp.Server.ViewModel
     {
         private readonly IListener _listener;
         private readonly ICommandContainer _commandContainer;
+
+        private bool _downloadFile = true;
 
         public string LocalFilePath
         {
@@ -37,15 +40,47 @@ namespace Frdp.Server.ViewModel
             get;
             set;
         }
-        
-        private ICommand _openFileDialogCommand;
-        public ICommand OpenFileDialogCommand
+
+        public bool DownloadFile
         {
             get
             {
-                if (_openFileDialogCommand == null)
+                return
+                    _downloadFile;
+            }
+
+            set
+            {
+                _downloadFile = value;
+
+                OnPropertyChanged(string.Empty);
+            }
+        }
+
+        public bool UploadFile
+        {
+            get
+            {
+                return
+                    !_downloadFile;
+            }
+
+            set
+            {
+                _downloadFile = !value;
+                OnPropertyChanged(string.Empty);
+
+            }
+        }
+
+        private ICommand _chooseDownloadFileCommand;
+        public ICommand ChooseDownloadFileCommand
+        {
+            get
+            {
+                if (_chooseDownloadFileCommand == null)
                 {
-                    _openFileDialogCommand = new RelayCommand(
+                    _chooseDownloadFileCommand = new RelayCommand(
                         j =>
                         {
                             var ofd = new OpenFileDialog();
@@ -58,18 +93,20 @@ namespace Frdp.Server.ViewModel
 
                                 LocalFilePath = filePath;
 
-                                //дл€ удобства заполним папку назначени€, вдруг совпадают
-                                var fi = new FileInfo(filePath);
-
-                                var rfi = Path.Combine(
-                                    fi.Directory.FullName,
-                                    fi.Name.Substring(0, fi.Name.Length - fi.Extension.Length) + " {received}" + fi.Extension
-                                    );
-
                                 if (string.IsNullOrEmpty(RemoteFilePath))
                                 {
+                                    //дл€ удобства заполним папку назначени€, вдруг совпадают
+                                    var fi = new FileInfo(filePath);
+
+                                    var rfi = Path.Combine(
+                                        fi.Directory.FullName,
+                                        fi.Name.Substring(0, fi.Name.Length - fi.Extension.Length) + " {received}" + fi.Extension
+                                        );
+
                                     RemoteFilePath = rfi;
                                 }
+
+                                _downloadFile = true;
 
                                 OnPropertyChanged(string.Empty);
                                 OnCommandInvalidate();
@@ -80,7 +117,7 @@ namespace Frdp.Server.ViewModel
                 }
 
                 return
-                    _openFileDialogCommand;
+                    _chooseDownloadFileCommand;
             }
         }
 
@@ -95,15 +132,31 @@ namespace Frdp.Server.ViewModel
                     _startFileTaskCommand = new RelayCommand(
                         j =>
                         {
-                            var fi = new FileInfo(LocalFilePath);
+                            BaseCommand cmd;
+                            if (_downloadFile)
+                            {
+                                var fi = new FileInfo(LocalFilePath);
 
-                            var cmd = new StartFileTaskCommand(
-                                LocalFilePath,
-                                RemoteFilePath,
-                                fi.Length,
-                                ForceToCreateFolder,
-                                ForceToDeleteFile
-                                );
+                                cmd = new StartFileTaskCommand(
+                                    true,
+                                    LocalFilePath,
+                                    RemoteFilePath,
+                                    fi.Length,
+                                    ForceToCreateFolder,
+                                    ForceToDeleteFile
+                                    );
+                            }
+                            else
+                            {
+                                cmd = new StartFileTaskCommand(
+                                    false,
+                                    LocalFilePath,
+                                    RemoteFilePath,
+                                    0L, //unused for uploading
+                                    ForceToCreateFolder,
+                                    false //unused for uploading
+                                    );
+                            }
 
                             _commandContainer.AddCommand(
                                 cmd
@@ -111,6 +164,13 @@ namespace Frdp.Server.ViewModel
 
                             OnPropertyChanged(string.Empty);
                             OnCommandInvalidate();
+
+                            MessageBox.Show(
+                                " оманда поставлена в очередь на отправку и будет доставлена на клиента при первой возможности.",
+                                " оманда создана",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information
+                                );
                         },
                         j => _listener.IsListening
                         );

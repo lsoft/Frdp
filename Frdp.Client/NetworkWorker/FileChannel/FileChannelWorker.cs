@@ -12,8 +12,6 @@ namespace Frdp.Client.NetworkWorker.FileChannel
 {
     public class FileChannelWorker : IFileChannelWorker, IDisposable
     {
-        private const int DefaultPartLength = 65536;
-
         private readonly IThreadIsolator _threadIsolator;
         private readonly IConnectionController _connectionController;
         private readonly IFileTaskContainer _fileTaskContainer;
@@ -128,19 +126,9 @@ namespace Frdp.Client.NetworkWorker.FileChannel
                             {
                                 foreach (var task in alives)
                                 {
-                                    //определяем размер блока, который мы потребуем и смещение от начала
-                                    var offset = task.CurrentFileSize;
-                                    var size = task.GetPartLength(DefaultPartLength);
-
-                                    //доставляем данные
-                                    var data = channel.GetData(
-                                        task.RemoteFilePath,
-                                        offset,
-                                        size
+                                    task.ProcessOneIteration(
+                                        channel
                                         );
-
-                                    //сохраняем полученные данные
-                                    task.SaveReceivedPart(data);
 
                                     if (tdc.IsNeedToDie)
                                     {

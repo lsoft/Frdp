@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Frdp.Server.Windows.FileWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Передача файлов" Height="200" Width="800" ResizeMode="NoResize"
+        Title="Передача файлов" Height="210" Width="800" ResizeMode="NoResize"
         Closed="FileWindow_OnClosed"
         >
     <Grid
@@ -9,6 +9,7 @@
         VerticalAlignment="Center"
         >
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -41,15 +42,15 @@
             Grid.Row="0"
             Grid.Column="2"
             Margin="5"
-            Content="Выбрать файл..."
-            Command="{Binding OpenFileDialogCommand}"
+            Content="Выбрать отправляемый файл..."
+            Command="{Binding ChooseDownloadFileCommand}"
             />
 
         <Label
             Grid.Row="1"
             Grid.Column="0"
             Margin="5"
-            Content="Путь сохранения файла на ФС клиента:"
+            Content="Путь к файлу на ФС клиента:"
             />
 
         <TextBox
@@ -69,6 +70,29 @@
             Margin="5"
             >
             
+            <RadioButton
+                Content="С сервера на клиента (отправить файл)"
+                Margin="5,5,10,5"
+                IsChecked="{Binding DownloadFile}"
+                />
+
+            <RadioButton
+                Content="С клиента на сервер (получить файл)"
+                Margin="10,5,5,5"
+                IsChecked="{Binding UploadFile}"
+                />
+
+        </StackPanel>
+        
+        <StackPanel
+            Grid.Row="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Margin="5"
+            >
+            
             <CheckBox
                 Margin="5"
                 Content="Создать папку, если ее нет"
@@ -79,12 +103,13 @@
                 Margin="5"
                 Content="Перезаписать файл, если он есть"
                 IsChecked="{Binding ForceToDeleteFile}"
+                IsEnabled="{Binding DownloadFile}"
                 />
             
         </StackPanel>
         
         <Button
-            Grid.Row="3"
+            Grid.Row="4"
             Grid.Column="0"
             Grid.ColumnSpan="3"
             HorizontalAlignment="Right"

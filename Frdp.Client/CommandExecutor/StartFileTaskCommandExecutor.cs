@@ -34,16 +34,29 @@ namespace Frdp.Client.CommandExecutor
                 throw new ArgumentNullException("command");
             }
 
-            var ft = new FileTask(
-                command.ServerFilePath,
-                command.ClientFilePath,
-                command.TotalFileSize,
-                command.ForceToCreateFolder,
-                command.ForceToDeleteFile,
-                _logger
-                );
+            IFileTask task;
+            if (command.DownloadFile)
+            {
+                task = new DownloadFileTask(
+                    command.ServerFilePath,
+                    command.ClientFilePath,
+                    command.TotalFileSize,
+                    command.ForceToCreateFolder,
+                    command.ForceToDeleteFile,
+                    _logger
+                    );
+            }
+            else
+            {
+                task = new UploadFileTask(
+                    command.ServerFilePath,
+                    command.ClientFilePath,
+                    command.ForceToCreateFolder,
+                    _logger
+                    );
+            }
 
-            _fileTaskAdder.AddTask(ft);
+            _fileTaskAdder.AddTask(task);
         }
     }
 }

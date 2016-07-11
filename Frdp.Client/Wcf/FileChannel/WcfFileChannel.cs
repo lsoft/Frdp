@@ -68,6 +68,19 @@ namespace Frdp.Client.Wcf.FileChannel
                     );
         }
 
+        public void AppendData(
+            string filepath,
+            bool forceToCreateFolder,
+            byte[] data
+            )
+        {
+            _channel.AppendData(
+                filepath,
+                forceToCreateFolder,
+                data
+                );
+        }
+
         public void Dispose()
         {
             if (!_disposed)

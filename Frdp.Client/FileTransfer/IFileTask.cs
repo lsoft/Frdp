@@ -1,21 +1,24 @@
+using Frdp.Client.Channel.FileChannel;
+
 namespace Frdp.Client.FileTransfer
 {
     public interface IFileTask : IFileTaskIdentifier
     {
-        event FileTask.TaskChangedDelegate TaskChangeEvent;
+        event TaskChangedDelegate TaskChangeEvent;
 
-        void SaveReceivedPart(
-            byte[] data
-            );
-
-        int GetPartLength(
-            int defaultLength
-            );
+        bool IsDownloadTask
+        {
+            get;
+        }
 
         void SafelyDelete(
             );
 
         void ForceToClose(
+            );
+
+        void ProcessOneIteration(
+            IFileChannel channel
             );
     }
 }

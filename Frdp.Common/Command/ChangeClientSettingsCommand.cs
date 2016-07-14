@@ -53,6 +53,15 @@ namespace Frdp.Common.Command
             }
         }
 
+        public byte Mask
+        {
+            get
+            {
+                return
+                    _clientSettings.Mask;
+            }
+        }
+
         public static string CommandType
         {
             get
@@ -87,13 +96,15 @@ namespace Frdp.Common.Command
             var scaleFactorX = int.Parse(node.SelectSingleNode("ScaleFactorX").InnerText);
             var scaleFactorY = int.Parse(node.SelectSingleNode("ScaleFactorY").InnerText);
             var timeoutBetweenFrames = TimeSpan.FromMilliseconds(int.Parse(node.SelectSingleNode("TimeoutBetweenFrames").InnerText));
+            var mask = byte.Parse(node.SelectSingleNode("Mask").InnerText);
 
             var clientSettings = new ClientSettings(
                 blockWidth,
                 blockHeight,
                 scaleFactorX,
                 scaleFactorY,
-                timeoutBetweenFrames 
+                timeoutBetweenFrames,
+                mask
                 );
 
             _clientSettings = clientSettings;
@@ -115,7 +126,8 @@ namespace Frdp.Common.Command
                 BlockHeight,
                 ScaleFactorX,
                 ScaleFactorY,
-                TimeoutBetweenFrames.TotalMilliseconds
+                TimeoutBetweenFrames.TotalMilliseconds,
+                Mask
                 );
 
             return
@@ -126,12 +138,13 @@ namespace Frdp.Common.Command
         {
             return
                 string.Format(
-                    "BlockWidth {0}, BlockHeight {1}, ScaleFactorX {2}, ScaleFactorY {3}, TimeoutBetweenFrames {4}",
+                    "BlockWidth {0}, BlockHeight {1}, ScaleFactorX {2}, ScaleFactorY {3}, TimeoutBetweenFrames {4}, Mask {5}",
                     BlockWidth,
                     BlockHeight,
                     ScaleFactorX,
                     ScaleFactorY,
-                    TimeoutBetweenFrames
+                    TimeoutBetweenFrames,
+                    Mask
                     );
         }
 
@@ -141,6 +154,7 @@ namespace Frdp.Common.Command
 <ScaleFactorX>{2}</ScaleFactorX>
 <ScaleFactorY>{3}</ScaleFactorY>
 <TimeoutBetweenFrames>{4}</TimeoutBetweenFrames>
+<Mask>{5}</Mask>
 ";
     }
 }

@@ -54,8 +54,7 @@ namespace Frdp.Client.Block.Cutter.Settings
         }
 
         public BlockSettings(
-            IClientSettingsContainer clientSettings,
-            byte mask
+            IClientSettingsContainer clientSettings
             )
         {
             if (clientSettings == null)
@@ -63,7 +62,7 @@ namespace Frdp.Client.Block.Cutter.Settings
                 throw new ArgumentNullException("clientSettings");
             }
 
-            Mask = mask;
+            Mask = clientSettings.Mask;
 
             BlockWidth = clientSettings.BlockWidth;
             BlockHeight = clientSettings.BlockHeight;

@@ -28,5 +28,10 @@ namespace Frdp.Common.Settings
         {
             get;
         }
+
+        byte Mask
+        {
+            get;
+        }
     }
 }

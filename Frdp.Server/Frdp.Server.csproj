@@ -123,6 +123,7 @@
     <Compile Include="Keyboard\ISpecialButtonInterceptorFactory.cs" />
     <Compile Include="Applier\IDiffApplier.cs" />
     <Compile Include="Applier\ToBitmapDiffApplier.cs" />
+    <Compile Include="ViewModel\ColorQualityClass.cs" />
     <Compile Include="ViewModel\FileViewModel.cs" />
     <Compile Include="Wcf\FileChannel\WcfFileBehaviour.cs" />
     <Compile Include="Wcf\FileChannel\WcfFileFactory.cs" />

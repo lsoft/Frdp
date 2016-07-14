@@ -147,10 +147,6 @@ namespace Frdp.Client.CompositionRoot
                 .Bind<IBlockSettings>()
                 .To<BlockSettings>()
                 //NOT A SINGLETON!
-                .WithConstructorArgument(
-                    "mask",
-                    Convert.ToByte("11110000", 2)
-                    )
                 ;
 
             _kernel

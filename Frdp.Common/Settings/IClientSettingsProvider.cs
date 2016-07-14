@@ -17,5 +17,9 @@ namespace Frdp.Common.Settings
         void SetTimeoutBetweenFrames(
             TimeSpan timeoutBetweenFrames
             );
+
+        void SetMask(
+            byte mask
+            );
     }
 }

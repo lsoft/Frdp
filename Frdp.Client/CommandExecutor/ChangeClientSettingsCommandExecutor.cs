@@ -42,6 +42,10 @@ namespace Frdp.Client.CommandExecutor
             _originalClientSettings.SetTimeoutBetweenFrames(
                 command.TimeoutBetweenFrames
                 );
+
+            _originalClientSettings.SetMask(
+                command.Mask
+                );
         }
     }
 }

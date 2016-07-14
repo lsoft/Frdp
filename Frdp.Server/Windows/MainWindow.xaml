@@ -4,7 +4,7 @@
         Title="Сервер Frdp"
         xmlns:Wpf="clr-namespace:Frdp.Wpf;assembly=Frdp.Wpf"
         Width="800"
-        Height="250"
+        Height="270"
         
         Closed="MainWindow_OnClosed"
         >
@@ -15,6 +15,7 @@
     <Grid
         >
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -156,8 +157,25 @@
 
         </StackPanel>
 
-        <Button
+       
+
+        <Label
             Grid.Row="5"
+            Grid.Column="0"
+            Content="Качество цветопередачи: "
+            />
+
+        <ComboBox
+            Grid.Row="5"
+            Grid.Column="1"
+            IsEnabled="{Binding Path=IsListening}"
+            ItemsSource="{Binding Path=ColorQuality}"
+            SelectedItem="{Binding Path=SelectedColorQuality}"
+            />
+
+
+        <Button
+            Grid.Row="6"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             HorizontalAlignment="Right"
@@ -168,7 +186,7 @@
             />
 
         <TextBlock
-            Grid.Row="6"
+            Grid.Row="7"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             Foreground="Red"

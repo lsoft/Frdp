@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -273,6 +274,18 @@ namespace Frdp.Server.ViewModel
             }
         }
 
+        public List<ColorQualityClass> ColorQuality
+        {
+            get;
+            private set;
+        }
+
+        public ColorQualityClass SelectedColorQuality
+        {
+            get;
+            set;
+        }
+
         public string ErrorMessage
         {
             get;
@@ -383,6 +396,16 @@ namespace Frdp.Server.ViewModel
             _commandContainer = commandContainer;
 
             _endpointContainer.EndpointAddress = "net.tcp://localhost:3310/Frdp";
+
+            this.ColorQuality = new List<ColorQualityClass>
+            {
+                new ColorQualityClass(Convert.ToByte("11110000", 2), "16 градаций серого"),
+                new ColorQualityClass(Convert.ToByte("11111000", 2), "32 градаций серого"),
+                new ColorQualityClass(Convert.ToByte("11111100", 2), "64 градаций серого"),
+                new ColorQualityClass(Convert.ToByte("11111110", 2), "128 градаций серого"),
+                new ColorQualityClass(Convert.ToByte("11111111", 2), "256 градаций серого (полная палитра)"),
+            };
+            this.SelectedColorQuality = this.ColorQuality[0];
         }
 
         private void DoPushCommand()
@@ -392,7 +415,8 @@ namespace Frdp.Server.ViewModel
                 _blockHeight,
                 _scaleFactorX,
                 _scaleFactorY,
-                _timeoutBetweenFrames
+                _timeoutBetweenFrames,
+                SelectedColorQuality.Mask
                 );
 
             var cmd = new ChangeClientSettingsCommand(

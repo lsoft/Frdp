@@ -34,13 +34,27 @@ namespace Frdp.Common.Settings
             private set;
         }
 
-        public ClientSettings(uint blockWidth, uint blockHeight, int scaleFactorX, int scaleFactorY, TimeSpan timeoutBetweenFrames)
+        public byte Mask
+        {
+            get;
+            set;
+        }
+
+        public ClientSettings(
+            uint blockWidth, 
+            uint blockHeight, 
+            int scaleFactorX, 
+            int scaleFactorY, 
+            TimeSpan timeoutBetweenFrames,
+            byte mask
+            )
         {
             BlockWidth = blockWidth;
             BlockHeight = blockHeight;
             ScaleFactorX = scaleFactorX;
             ScaleFactorY = scaleFactorY;
             TimeoutBetweenFrames = timeoutBetweenFrames;
+            Mask = mask;
         }
 
         public ClientSettings()
@@ -50,6 +64,7 @@ namespace Frdp.Common.Settings
             ScaleFactorX = 2;
             ScaleFactorY = 2;
             TimeoutBetweenFrames = TimeSpan.Zero;
+            Mask = Convert.ToByte("11110000", 2);
         }
 
         public void SetBlockSize(
@@ -92,6 +107,11 @@ namespace Frdp.Common.Settings
             )
         {
             TimeoutBetweenFrames = timeoutBetweenFrames;
+        }
+
+        public void SetMask(byte mask)
+        {
+            this.Mask = mask;
         }
     }
 }

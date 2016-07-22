@@ -96,6 +96,15 @@
       <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.1.0.20160316\lib\net40\OpenCvSharp.UserInterface.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SharpDX">
+      <HintPath>..\$external\SharpDX\2.6.3\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D11">
+      <HintPath>..\$external\SharpDX\2.6.3\SharpDX.Direct3D11.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DXGI">
+      <HintPath>..\$external\SharpDX\2.6.3\SharpDX.DXGI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -156,6 +165,7 @@
     <Compile Include="CompositionRoot\CommandExecutorModule.cs" />
     <Compile Include="CompositionRoot\CommandModule.cs" />
     <Compile Include="CompositionRoot\Root.cs" />
+    <Compile Include="CompositionRoot\ScreenshotModule.cs" />
     <Compile Include="Connection\ConnectionController.cs" />
     <Compile Include="FileTransfer\TaskChangedDelegate.cs" />
     <Compile Include="FileTransfer\UploadFileTask.cs" />
@@ -185,8 +195,15 @@
     <Compile Include="ScreenInfo\HdcScreenInfo.cs" />
     <Compile Include="ScreenInfo\IScreenInfo.cs" />
     <Compile Include="ScreenshotContainer\DefaultScreenshotContainer.cs" />
+    <Compile Include="ScreenshotContainer\Factory\DebugScreenshotContainerFactory.cs" />
     <Compile Include="ScreenshotContainer\Factory\DefaultScreenshotContainerFactory.cs" />
+    <Compile Include="ScreenshotContainer\Factory\Duplicate\DesktopDuplicationException.cs" />
+    <Compile Include="ScreenshotContainer\Factory\DesktopDuplicationScreenshotContainerFactory.cs" />
+    <Compile Include="ScreenshotContainer\Factory\Duplicate\DesktopDuplicator.cs" />
+    <Compile Include="ScreenshotContainer\Factory\Duplicate\DesktopFrame.cs" />
     <Compile Include="ScreenshotContainer\Factory\IScreenshotContainerFactory.cs" />
+    <Compile Include="ScreenshotContainer\Factory\Duplicate\MovedRegion.cs" />
+    <Compile Include="ScreenshotContainer\Factory\Duplicate\PointerInfo.cs" />
     <Compile Include="ScreenshotContainer\IScreenshotContainer.cs" />
     <Compile Include="Helpers\SendInputProxy.cs" />
     <Compile Include="Suicider\ApplicationSuicider.cs" />
@@ -268,7 +285,9 @@
       <Name>System.ServiceModel.Extensions.Compression</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="ScreenshotContainer\Factory\Duplicate\Author.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy $(SolutionDir)$(ConfigurationName)\PerformanceLibrary.dll $(TargetDir) /Y

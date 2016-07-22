@@ -156,19 +156,6 @@ namespace Frdp.Client.CompositionRoot
                 ;
 
             _kernel
-                .Bind<IScreenInfoFactory>()
-                //.To<ZenMachineScreenInfoFactory>()
-                .To<PrimaryMonitorScreenInfoFactory>()
-                .InSingletonScope()
-                ;
-
-            _kernel
-                .Bind<IScreenshotContainerFactory>()
-                .To<DefaultScreenshotContainerFactory>()
-                .InSingletonScope()
-                ;
-
-            _kernel
                 .Bind<ICutterFactory>()
                 .To<CppCutterFactory>()
                 .InSingletonScope()
@@ -227,6 +214,11 @@ namespace Frdp.Client.CompositionRoot
                 .To<NInjectFileTaskAdder>()
                 .InSingletonScope()
                 ;
+
+            var screenshotModule = new ScreenshotModule(
+                _clac
+                );
+            _kernel.Load(screenshotModule);
 
             var commandModule = new CommandModule();
             _kernel.Load(commandModule);

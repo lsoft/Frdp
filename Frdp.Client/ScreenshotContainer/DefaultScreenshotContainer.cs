@@ -21,6 +21,31 @@ namespace Frdp.Client.ScreenshotContainer
         public DefaultScreenshotContainer(
             IClientSettingsContainer clientSettings,
             ILogger logger,
+            Bitmap bitmap
+            )
+        {
+            if (clientSettings == null)
+            {
+                throw new ArgumentNullException("clientSettings");
+            }
+            if (logger == null)
+            {
+                throw new ArgumentNullException("logger");
+            }
+            if (bitmap == null)
+            {
+                throw new ArgumentNullException("bitmap");
+            }
+
+            _clientSettings = clientSettings;
+            _logger = logger;
+            _hBmp = IntPtr.Zero;
+            _bitmap = bitmap;
+        }
+
+        public DefaultScreenshotContainer(
+            IClientSettingsContainer clientSettings,
+            ILogger logger,
             IntPtr hBmp,
             Bitmap bitmap
             )
@@ -48,9 +73,21 @@ namespace Frdp.Client.ScreenshotContainer
         {
             if (!_disposed)
             {
+                if (_hBmp != IntPtr.Zero)
+                {
+                    try
+                    {
+                        InvokeHelper.DeleteObject(_hBmp);
+                    }
+                    catch
+                    {
+                        //nothing to do, suppress this exception
+                    }
+                }
+
                 try
                 {
-                    InvokeHelper.DeleteObject(_hBmp);
+                    _bitmap.Dispose();
                 }
                 catch
                 {

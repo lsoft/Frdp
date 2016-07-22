@@ -1,0 +1,4 @@
+﻿Original code is written by jasonpang and has been copy-pasted from https://github.com/jasonpang/desktop-duplication-net
+At this moment the repository does not contain a license information.
+
+The code had extensively modified by myself.

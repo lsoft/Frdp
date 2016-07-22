@@ -10,6 +10,7 @@ namespace Frdp.Client
         private const string IsDefaultConnectionOnlineKey = "-autoconnect";
         private const string IsSuicideTimeoutExistsKey = "-suicide_minutes";
         private const string ConnectionAddressKey = "-connect_to";
+        private const string DebugInfoKey = "-debug_info";
 
         private readonly Dictionary<string, string> _args ;
 
@@ -71,6 +72,15 @@ namespace Frdp.Client
 
                 return
                     result;
+            }
+        }
+
+        public bool IsDebugInfoEnabled
+        {
+            get
+            {
+                return
+                    _args.ContainsKey(DebugInfoKey);
             }
         }
 

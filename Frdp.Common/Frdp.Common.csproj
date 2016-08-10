@@ -62,8 +62,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CLogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CLogger.1.0.0.917\lib\net40\CLogger.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\$external\CLogger\CLogger.dll</HintPath>
     </Reference>
     <Reference Include="OpenCvSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenCvSharp3-AnyCPU.3.1.0.20160316\lib\net40\OpenCvSharp.dll</HintPath>

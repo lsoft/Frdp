@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Frdp.Client.Helpers;
 using Frdp.Client.ScreenInfo.Factory;
 using Frdp.Common.Command;
 
@@ -42,10 +43,18 @@ namespace Frdp.Client.CommandExecutor
 
                 if (oldX != newX || oldY != newY)
                 {
-                    Cursor.Position = new Point(
-                        newX,
-                        newY
+                    InvokeHelper.mouse_event(
+                        InvokeHelper.MOUSEEVENTF_MOVE | InvokeHelper.MOUSEEVENTF_ABSOLUTE,
+                        (int)(command.RelativeX * 65536),
+                        (int)(command.RelativeY * 65536),
+                        0,
+                        0
                         );
+
+                    //Cursor.Position = new Point(
+                    //    newX,
+                    //    newY
+                    //    );
                 }
             }
         }

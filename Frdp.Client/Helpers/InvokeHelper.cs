@@ -19,7 +19,7 @@ namespace Frdp.Client.Helpers
         public const int MOUSEEVENTF_RIGHTUP = 0x0010;
 
         public const int MOUSEEVENTF_ABSOLUTE = 0x8000;
-
+        public const int MOUSEEVENTF_MOVE = 0x0001;
 
 
         [DllImport("gdi32.dll")]

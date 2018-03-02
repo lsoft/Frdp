@@ -94,7 +94,10 @@ namespace Frdp.Client.ScreenshotContainer.Factory
 
                 var olddd = Interlocked.Exchange(ref _desktopDuplicator, newdd);
 
-                olddd.Dispose();
+                if (olddd != null)
+                {
+                    olddd.Dispose();
+                }
             }
             catch (Exception excp)
             {

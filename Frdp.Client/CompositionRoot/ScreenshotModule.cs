@@ -42,12 +42,6 @@ namespace Frdp.Client.CompositionRoot
 
                 ftype = typeof (DefaultScreenshotContainerFactory);
 
-
-                Bind<IScreenInfoFactory>()
-                    //.To<ZenMachineScreenInfoFactory>()
-                    .To<PrimaryMonitorScreenInfoFactory>()
-                    .InSingletonScope()
-                    ;
             }
 
             if (_clac.IsDebugInfoEnabled)
@@ -70,6 +64,12 @@ namespace Frdp.Client.CompositionRoot
                     .InSingletonScope()
                     ;
             }
+
+            Bind<IScreenInfoFactory>()
+                //.To<ZenMachineScreenInfoFactory>()
+                .To<PrimaryMonitorScreenInfoFactory>()
+                .InSingletonScope()
+                ;
         }
     }
 }

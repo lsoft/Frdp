@@ -50,11 +50,15 @@ namespace Frdp.Client
 
             var fileRetriever = _root.Get<IFileChannelWorker>();
             fileRetriever.AsyncStart();
+
             mainWindow.Show();
         }
 
         private void App_OnExit(object sender, ExitEventArgs e)
         {
+            var suicider = _root.Get<IApplicationSuicider>();
+            suicider.SyncStop();
+
             var fileRetriever = _root.Get<IFileChannelWorker>();
             fileRetriever.SyncStop();
 

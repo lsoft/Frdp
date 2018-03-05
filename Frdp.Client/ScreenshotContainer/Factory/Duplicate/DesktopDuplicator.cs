@@ -181,14 +181,30 @@ namespace Frdp.Client.ScreenshotContainer.Factory.Duplicate
             {
                 _disposed = true;
 
-                _deskDupl.Dispose();
-                
-                _desktopImageTexture.Dispose();
-                
-                _device.Dispose();
+                if (_deskDupl != null)
+                {
+                    _deskDupl.Dispose();
+                }
 
-                _finalImage1.Dispose();
-                _finalImage2.Dispose();
+                if (_desktopImageTexture != null)
+                {
+                    _desktopImageTexture.Dispose();
+                }
+
+                if (_device != null)
+                {
+                    _device.Dispose();
+                }
+
+                if (_finalImage1 != null)
+                {
+                    _finalImage1.Dispose();
+                }
+
+                if (_finalImage2 != null)
+                {
+                    _finalImage2.Dispose();
+                }
             }
         }
 

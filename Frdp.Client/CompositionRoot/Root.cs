@@ -144,40 +144,11 @@ namespace Frdp.Client.CompositionRoot
                 ;
 
             _kernel
-                .Bind<IBlockSettings>()
-                .To<BlockSettings>()
-                //NOT A SINGLETON!
-                ;
-
-            _kernel
-                .Bind<IBlockSettingsFactory>()
-                .ToFactory()
+                .Bind<IClientSettingsProvider, IClientSettingsContainer>()
+                .To<ClientSettings>()
                 .InSingletonScope()
                 ;
 
-            _kernel
-                .Bind<ICutterFactory>()
-                .To<CppCutterFactory>()
-                .InSingletonScope()
-                ;
-
-            _kernel
-                .Bind<ICrcCalculator>()
-                .To<CppCrcCalculator>()
-                .InSingletonScope()
-                ;
-
-            _kernel
-                .Bind<IBlockContainerFactory>()
-                .To<BlockContainerFactory>()
-                .InSingletonScope()
-                ;
-
-            _kernel
-                .Bind<IBlockDiffer>()
-                .To<BlockDiffer>()
-                .InSingletonScope()
-                ;
 
             _kernel
                 .Bind<ICommandContainerFactory>()
@@ -191,29 +162,6 @@ namespace Frdp.Client.CompositionRoot
                 .InSingletonScope()
                 ;
 
-            _kernel
-                .Bind<IClientSettingsProvider, IClientSettingsContainer>()
-                .To<ClientSettings>()
-                .InSingletonScope()
-                ;
-
-            _kernel
-                .Bind<IFileTaskContainer>()
-                .To<FileTaskContainer>()
-                .InSingletonScope()
-                ;
-
-            _kernel
-                .Bind<IFileChannelWorker>()
-                .To<FileChannelWorker>()
-                .InSingletonScope()
-                ;
-
-            _kernel
-                .Bind<IFileTaskAdder>()
-                .To<NInjectFileTaskAdder>()
-                .InSingletonScope()
-                ;
 
             var screenshotModule = new ScreenshotModule(
                 _clac
@@ -230,6 +178,12 @@ namespace Frdp.Client.CompositionRoot
                 _clac
                 );
             _kernel.Load(networkModule);
+
+            var blockRelatedModule = new BlockRelatedModule();
+            _kernel.Load(blockRelatedModule);
+
+            var fileTransferModule = new FileTransferModule();
+            _kernel.Load(fileTransferModule);
 
             _logger = _kernel.Get<ILogger>();
 

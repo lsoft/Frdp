@@ -1,8 +1,10 @@
 ﻿<Window x:Class="Frdp.Client.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Wpf="clr-namespace:Frdp.Wpf;assembly=Frdp.Wpf"
-        Title="Клиент Frdp" Height="120" Width="525">
+        xmlns:Wpf="clr-namespace:Frdp.Wpf;assembly=Frdp.Wpf" ResizeMode="CanMinimize"
+        Title="Клиент Frdp" Height="120" Width="525"
+        Loaded="MainWindow_OnLoaded"
+        >
     <Window.Resources>
         <Wpf:BoolInverter x:Key="BoolInverterKey"/>
     </Window.Resources>
@@ -29,9 +31,15 @@
             
             <TextBox
                 Grid.Column="1"
-                Text="{Binding Endpoint}"
+                Text="{Binding Endpoint, UpdateSourceTrigger=PropertyChanged}"
                 IsEnabled="{Binding Path=IsConnectionProceed, Converter={StaticResource BoolInverterKey}}"
-                />
+                Focusable="True"
+                Name="EndpointTextBox"
+                >
+                <TextBox.InputBindings>
+                    <KeyBinding Command="{Binding StartConnectionCommand}" Key="Return" />
+                </TextBox.InputBindings>
+            </TextBox>
 
         </Grid>
         

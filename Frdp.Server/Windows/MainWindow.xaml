@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Сервер Frdp"
         xmlns:Wpf="clr-namespace:Frdp.Wpf;assembly=Frdp.Wpf"
-        Width="800"
-        Height="270"
+        Width="800" Height="270"
+        ResizeMode="CanMinimize"
         
         Closed="MainWindow_OnClosed"
         >

@@ -161,11 +161,11 @@
     <Compile Include="CommandExecutor\MouseButtonCommandExecutor.cs" />
     <Compile Include="CommandExecutor\MousePositionCommandExecutor.cs" />
     <Compile Include="CommandExecutor\StartFileTaskCommandExecutor.cs" />
-    <Compile Include="CompositionRoot\NetworkModule.cs" />
+    <Compile Include="CompositionRoot\Modules\NetworkModule.cs" />
     <Compile Include="CompositionRoot\NinjectCommandExecutor.cs" />
     <Compile Include="CommandLineArgContainer.cs" />
-    <Compile Include="CompositionRoot\CommandExecutorModule.cs" />
-    <Compile Include="CompositionRoot\CommandModule.cs" />
+    <Compile Include="CompositionRoot\Modules\CommandExecutorModule.cs" />
+    <Compile Include="CompositionRoot\Modules\CommandModule.cs" />
     <Compile Include="CompositionRoot\Root.cs" />
     <Compile Include="CompositionRoot\ScreenshotModule.cs" />
     <Compile Include="Connection\ConnectionController.cs" />

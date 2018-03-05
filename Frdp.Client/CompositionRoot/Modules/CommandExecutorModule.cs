@@ -6,7 +6,7 @@ using Ninject.Modules;
 
 namespace Frdp.Client.CompositionRoot
 {
-    public class CommandExecutorModule : NinjectModule
+    public sealed class CommandExecutorModule : NinjectModule
     {
         public override void Load()
         {

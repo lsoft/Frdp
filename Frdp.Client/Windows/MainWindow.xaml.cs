@@ -1,4 +1,5 @@
-﻿using Frdp.Client.ViewModel;
+﻿using System.Windows;
+using Frdp.Client.ViewModel;
 
 namespace Frdp.Client.Windows
 {
@@ -14,6 +15,12 @@ namespace Frdp.Client.Windows
             this.DataContext = viewModel;
 
             InitializeComponent();
+        }
+
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            EndpointTextBox.Focus();
+            EndpointTextBox.SelectAll();
         }
     }
 }

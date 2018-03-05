@@ -42,6 +42,18 @@ namespace Frdp.Server.ViewModel
             }
         }
 
+        public int RealWidth
+        {
+            get;
+            private set;
+        }
+
+        public int RealHeight
+        {
+            get;
+            private set;
+        }
+
         public RdpViewModel(
             Dispatcher dispatcher,
             DirectBitmapContainer container,
@@ -56,6 +68,9 @@ namespace Frdp.Server.ViewModel
             _commandContainer = commandContainer;
 
             container.BitmapChangedEvent += ContainerOnBitmapChanged;
+
+            RealWidth = 800;
+            RealHeight = 600;
         }
 
         public void SetRelativeCursorPosition(double x, double y)
@@ -142,6 +157,17 @@ namespace Frdp.Server.ViewModel
                         }
 
                         OnPropertyChanged("Desktop");
+
+                        if (RealWidth != newDesktop.Source.PixelWidth)
+                        {
+                            RealWidth = newDesktop.Source.PixelWidth;
+                            OnPropertyChanged("RealWidth");
+                        }
+                        if (RealHeight != newDesktop.Source.PixelHeight)
+                        {
+                            RealHeight = newDesktop.Source.PixelHeight;
+                            OnPropertyChanged("RealHeight");
+                        }
                     })
                 );
         }

@@ -18,7 +18,7 @@ using Ninject.Modules;
 
 namespace Frdp.Client.CompositionRoot
 {
-    internal class NetworkModule : NinjectModule
+    internal sealed class NetworkModule : NinjectModule
     {
         private readonly CommandLineArgContainer _clac;
 

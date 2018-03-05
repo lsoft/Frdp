@@ -41,19 +41,19 @@ namespace Frdp.Client.Block.Cutter.Naive
             {
                 fixed(byte* blockData = _blockContainer.BlockData)
                 {
-                var singleBlockSize = _blockContainer.BlockSettings.SingleBlockSize;
+                    var singleBlockSize = _blockContainer.BlockSettings.SingleBlockSize;
 
-                var blockWidth = _blockContainer.BlockSettings.BlockWidth;
-                var blockHorizontalShift = _blockContainer.BlockSettings.BlockHorizontalShift;
-                var blockVerticalShift = _blockContainer.BlockSettings.BlockVerticalShift;
-                var blockHorizontalRightMask = _blockContainer.BlockSettings.BlockHorizontalRightMask;
-                var blockVerticalRightMask = _blockContainer.BlockSettings.BlockVerticalRightMask;
+                    var blockWidth = _blockContainer.BlockSettings.BlockWidth;
+                    var blockHorizontalShift = _blockContainer.BlockSettings.BlockHorizontalShift;
+                    var blockVerticalShift = _blockContainer.BlockSettings.BlockVerticalShift;
+                    var blockHorizontalRightMask = _blockContainer.BlockSettings.BlockHorizontalRightMask;
+                    var blockVerticalRightMask = _blockContainer.BlockSettings.BlockVerticalRightMask;
 
-                var blockCountHorizontal = _blockContainer.BlockCountHorizontal;
+                    var blockCountHorizontal = _blockContainer.BlockCountHorizontal;
 
-                var mask = _blockContainer.BlockSettings.Mask;
+                    var mask = _blockContainer.BlockSettings.Mask;
 
-                uint cc = 0;
+                    uint cc = 0;
                     for (uint h = 0; h < m1.Height; h++)
                     {
                         //var vbi = (h & BlockVerticalLeftMask) >> BlockVerticalShift;

@@ -6,7 +6,7 @@ namespace Frdp.Common.Command
 {
     public class ChangeClientSettingsCommand : BaseCommand
     {
-        private readonly ClientSettings _clientSettings;
+        private readonly IClientSettingsContainer _clientSettings;
 
         public uint BlockWidth
         {
@@ -72,7 +72,7 @@ namespace Frdp.Common.Command
         }
 
         public ChangeClientSettingsCommand(
-            ClientSettings clientSettings
+            IClientSettingsContainer clientSettings
             )
         {
             if (clientSettings == null)

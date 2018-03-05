@@ -189,7 +189,6 @@
     <Compile Include="FileTransfer\IFileTaskIdentifier.cs" />
     <Compile Include="NetworkWorker\FileChannel\IFileChannelWorker.cs" />
     <Compile Include="CompositionRoot\NInjectFileTaskAdder.cs" />
-    <Compile Include="Helpers\InvokeHelper.cs" />
     <Compile Include="Helpers\OpenCVHelper.cs" />
     <Compile Include="ScreenInfo\Factory\IScreenInfoFactory.cs" />
     <Compile Include="ScreenInfo\Factory\PrimaryMonitorScreenInfoFactory.cs" />

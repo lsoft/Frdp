@@ -3,13 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Удаленный клиент"
         
-        Height="{Binding RealHeight}"
-        MinHeight="{Binding RealHeight}"
-        MaxHeight="{Binding RealHeight}"
+        ResizeMode="{Binding CurrentResizeMode}"
+        
+        Height="{Binding RealHeight, Mode=TwoWay}"
+        MinHeight="{Binding MinHeight}"
+        MaxHeight="{Binding MaxHeight}"
 
-        Width="{Binding RealWidth}"
-        MinWidth="{Binding RealWidth}"
-        MaxWidth="{Binding RealWidth}"
+        Width="{Binding RealWidth, Mode=TwoWay}"
+        MinWidth="{Binding MinWidth}"
+        MaxWidth="{Binding MaxWidth}"
         
         Closing="RdpWindow_OnClosing"
         Closed="RdpWindow_OnClosed"
@@ -17,17 +19,58 @@
         KeyUp="Window_OnKeyUp"
         Activated="RdpWindow_OnActivated"
         Deactivated="RdpWindow_OnDeactivated"
+        LocationChanged="RdpWindow_OnLocationChanged"
+        Loaded="RdpWindow_OnLoaded"
+        
         >
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="B2VConverter"/>
     </Window.Resources>
+
+    <!--
+
+    
+    -->
     
     <Grid
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
         >
         
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        
+        <Menu
+            Grid.Row="0"
+            >
+            <MenuItem 
+                Header="Representation"
+                >
+                <MenuItem 
+                    Header="Resizeable mode"
+                    IsCheckable="True"
+                    IsChecked="{Binding ResizeableModeChecked}"
+                    >
+                </MenuItem>
+                <MenuItem 
+                    Header="Fix to received bitmap"
+                    IsCheckable="True"
+                    IsChecked="{Binding FixBitmapChecked}"
+                    >
+                </MenuItem>
+                <MenuItem 
+                    Header="Fix to scaled received bitmap"
+                    IsCheckable="True"
+                    IsChecked="{Binding ScaledFixBitmapChecked}"
+                    >
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        
         <TextBlock
+            Grid.Row="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Text="Нет связи"
@@ -37,6 +80,7 @@
             />
 
         <Image
+            Grid.Row="1"
             Margin="5"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
@@ -52,6 +96,7 @@
             
             
             />
-
     </Grid>
+
+
 </Window>

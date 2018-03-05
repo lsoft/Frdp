@@ -23,12 +23,13 @@ namespace Frdp.Server.ViewModel
         private readonly IEndpointContainer _endpointContainer;
         private readonly IListener _listener;
         private readonly ICommandContainer  _commandContainer;
+        private readonly IClientSettingsProvider _clientSettings;
 
-        private uint _blockWidth = 64;
-        private uint _blockHeight = 64;
-        private int _scaleFactorX = 2;
-        private int _scaleFactorY = 2;
-        private TimeSpan _timeoutBetweenFrames = TimeSpan.Zero;
+        //private uint _blockWidth = 64;
+        //private uint _blockHeight = 64;
+        //private int _scaleFactorX = 2;
+        //private int _scaleFactorY = 2;
+        //private TimeSpan _timeoutBetweenFrames = TimeSpan.Zero;
 
         public string Endpoint
         {
@@ -58,29 +59,25 @@ namespace Frdp.Server.ViewModel
             get
             {
                 return
-                    _timeoutBetweenFrames.TotalMilliseconds.ToString();
+                    _clientSettings.TimeoutBetweenFrames.TotalMilliseconds.ToString();
             }
 
             set
             {
                 var isOk = false;
 
-                uint v = 0u;
-                if (string.IsNullOrEmpty(value))
+                var v = 0u;
+                
+                if (uint.TryParse(value, out v))
                 {
                     isOk = true;
-                }
-                else
-                {
-                    if (uint.TryParse(value, out v))
-                    {
-                        isOk = true;
-                    }
                 }
 
                 if (isOk)
                 {
-                    _timeoutBetweenFrames = TimeSpan.FromMilliseconds(v);
+                    _clientSettings.SetTimeoutBetweenFrames(
+                        TimeSpan.FromMilliseconds(v)
+                        );
 
                     ErrorMessage = string.Empty;
                 }
@@ -99,7 +96,7 @@ namespace Frdp.Server.ViewModel
             get
             {
                 return
-                    _scaleFactorX.ToString();
+                    _clientSettings.ScaleFactorX.ToString();
             }
 
             set
@@ -108,24 +105,17 @@ namespace Frdp.Server.ViewModel
 
                 var v = 0;
                 
-                if (string.IsNullOrEmpty(value))
+                if (int.TryParse(value, out v))
                 {
-                    isOk = true;
-                }
-                else
-                {
-                    if (int.TryParse(value, out v))
+                    if (v.In(1, 2, 3, 4))
                     {
-                        if (v.In(1, 2, 3, 4))
-                        {
-                            isOk = true;
-                        }
+                        isOk = true;
                     }
                 }
 
                 if (isOk)
                 {
-                    _scaleFactorX = v;
+                    _clientSettings.SetScaleFactorX(v); //_scaleFactorX = v;
 
                     ErrorMessage = string.Empty;
                 }
@@ -144,7 +134,7 @@ namespace Frdp.Server.ViewModel
             get
             {
                 return
-                    _scaleFactorY.ToString();
+                    _clientSettings.ScaleFactorY.ToString();
             }
 
             set
@@ -152,25 +142,18 @@ namespace Frdp.Server.ViewModel
                 bool isOk = false;
 
                 var v = 0;
-
-                if (string.IsNullOrEmpty(value))
+                
+                if (int.TryParse(value, out v))
                 {
-                    isOk = true;
-                }
-                else
-                {
-                    if (int.TryParse(value, out v))
+                    if (v.In(1, 2, 3, 4))
                     {
-                        if (v.In(1, 2, 3, 4))
-                        {
-                            isOk = true;
-                        }
+                        isOk = true;
                     }
                 }
 
                 if (isOk)
                 {
-                    _scaleFactorY = v;
+                    _clientSettings.SetScaleFactorY(v); //_scaleFactorY = v;
 
                     ErrorMessage = string.Empty;
                 }
@@ -189,7 +172,7 @@ namespace Frdp.Server.ViewModel
             get
             {
                 return
-                    _blockWidth.ToString();
+                    _clientSettings.BlockWidth.ToString();
             }
 
             set
@@ -197,25 +180,18 @@ namespace Frdp.Server.ViewModel
                 bool isOk = false;
 
                 uint v = 0u;
-
-                if (string.IsNullOrEmpty(value))
+                
+                if (uint.TryParse(value, out v))
                 {
-                    isOk = true;
-                }
-                else
-                {
-                    if (uint.TryParse(value, out v))
+                    if (v.In(16u, 32u, 64u, 128u))
                     {
-                        if (v.In(16u, 32u, 64u, 128u))
-                        {
-                            isOk = true;
-                        }
+                        isOk = true;
                     }
                 }
 
                 if (isOk)
                 {
-                    _blockWidth = v;
+                    _clientSettings.SetBlockWidth(v); //_blockWidth = v;
 
                     ErrorMessage = string.Empty;
                 }
@@ -234,7 +210,7 @@ namespace Frdp.Server.ViewModel
             get
             {
                 return
-                    _blockHeight.ToString();
+                    _clientSettings.BlockHeight.ToString();
             }
 
             set
@@ -242,25 +218,18 @@ namespace Frdp.Server.ViewModel
                 bool isOk = false;
 
                 uint v = 0u;
-
-                if (string.IsNullOrEmpty(value))
+                
+                if (uint.TryParse(value, out v))
                 {
-                    isOk = true;
-                }
-                else
-                {
-                    if (uint.TryParse(value, out v))
+                    if (v.In(16u, 32u, 64u, 128u))
                     {
-                        if (v.In(16u, 32u, 64u, 128u))
-                        {
-                            isOk = true;
-                        }
+                        isOk = true;
                     }
                 }
 
                 if (isOk)
                 {
-                    _blockHeight = v;
+                    _clientSettings.SetBlockHeight(v); //_blockHeight = v;
 
                     ErrorMessage = string.Empty;
                 }
@@ -370,7 +339,8 @@ namespace Frdp.Server.ViewModel
             DirectBitmapContainer container,
             IEndpointContainer endpointContainer,
             IListener listener,
-            ICommandContainer commandContainer
+            ICommandContainer commandContainer,
+            IClientSettingsProvider clientSettings
             )
             : base(dispatcher)
         {
@@ -390,10 +360,15 @@ namespace Frdp.Server.ViewModel
             {
                 throw new ArgumentNullException("commandContainer");
             }
+            if (clientSettings == null)
+            {
+                throw new ArgumentNullException("clientSettings");
+            }
 
             _endpointContainer = endpointContainer;
             _listener = listener;
             _commandContainer = commandContainer;
+            _clientSettings = clientSettings;
 
             _endpointContainer.EndpointAddress = "net.tcp://localhost:3310/Frdp";
 
@@ -410,17 +385,17 @@ namespace Frdp.Server.ViewModel
 
         private void DoPushCommand()
         {
-            var cs = new ClientSettings(
-                _blockWidth,
-                _blockHeight,
-                _scaleFactorX,
-                _scaleFactorY,
-                _timeoutBetweenFrames,
-                SelectedColorQuality.Mask
-                );
+            //var cs = new ClientSettings(
+            //    _blockWidth,
+            //    _blockHeight,
+            //    _scaleFactorX,
+            //    _scaleFactorY,
+            //    _timeoutBetweenFrames,
+            //    SelectedColorQuality.Mask
+            //    );
 
             var cmd = new ChangeClientSettingsCommand(
-                cs
+                _clientSettings
                 );
 
             _commandContainer.AddCommand(

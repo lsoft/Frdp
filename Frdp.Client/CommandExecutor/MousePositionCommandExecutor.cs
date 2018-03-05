@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Frdp.Client.Helpers;
 using Frdp.Client.ScreenInfo.Factory;
+using Frdp.Common;
 using Frdp.Common.Command;
 
 namespace Frdp.Client.CommandExecutor

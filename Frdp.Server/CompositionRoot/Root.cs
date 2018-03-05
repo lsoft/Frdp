@@ -7,6 +7,7 @@ using System.Windows.Threading;
 using Frdp.Common;
 using Frdp.Common.Command;
 using Frdp.Common.Command.Container;
+using Frdp.Common.Settings;
 using Frdp.Server.AppController;
 using Frdp.Server.Applier;
 using Frdp.Server.Bitmap;
@@ -61,6 +62,12 @@ namespace Frdp.Server.CompositionRoot
                     "isNeedToZipLogFiles",
                     false
                     )
+                ;
+
+            _kernel
+                .Bind<IClientSettingsProvider, IClientSettingsContainer>()
+                .To<ClientSettings>()
+                .InSingletonScope()
                 ;
 
             _kernel

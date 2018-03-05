@@ -29,15 +29,31 @@ namespace Frdp.Client.CommandExecutor
                 throw new ArgumentNullException("command");
             }
 
-            _originalClientSettings.SetBlockSize(
-                command.BlockWidth,
+            _originalClientSettings.SetBlockWidth(
+                command.BlockWidth
+                );
+
+            _originalClientSettings.SetBlockHeight(
                 command.BlockHeight
                 );
 
-            _originalClientSettings.SetScaleFactor(
-                command.ScaleFactorX,
+            //_originalClientSettings.SetBlockSize(
+            //    command.BlockWidth,
+            //    command.BlockHeight
+            //    );
+
+            _originalClientSettings.SetScaleFactorX(
+                command.ScaleFactorX
+                );
+
+            _originalClientSettings.SetScaleFactorY(
                 command.ScaleFactorY
                 );
+
+            //_originalClientSettings.SetScaleFactor(
+            //    command.ScaleFactorX,
+            //    command.ScaleFactorY
+            //    );
 
             _originalClientSettings.SetTimeoutBetweenFrames(
                 command.TimeoutBetweenFrames

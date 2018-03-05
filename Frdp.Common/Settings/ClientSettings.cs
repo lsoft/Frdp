@@ -67,40 +67,88 @@ namespace Frdp.Common.Settings
             Mask = Convert.ToByte("11110000", 2);
         }
 
-        public void SetBlockSize(
-            uint blockWidth,
-            uint blockHeight
+        public void SetBlockWidth(
+            uint blockWidth
             )
         {
             if (blockWidth == 0)
             {
                 throw new ArgumentException("blockWidth == 0");
             }
-            if (blockHeight == 0)
-            {
-                throw new ArgumentException("blockHeight == 0");
-            }
+
             if (Math.Abs(Math.Log(blockWidth, 2.0) % 1) > double.Epsilon)
             {
                 throw new ArgumentException("BlockWidth must be power of two!");
+            }
+            
+            BlockWidth = blockWidth;
+        }
+
+        public void SetBlockHeight(
+            uint blockHeight
+            )
+        {
+            if (blockHeight == 0)
+            {
+                throw new ArgumentException("blockHeight == 0");
             }
             if (Math.Abs(Math.Log(blockHeight, 2.0) % 1) > double.Epsilon)
             {
                 throw new ArgumentException("BlockHeight must be power of two!");
             }
 
-            BlockWidth = blockWidth;
             BlockHeight = blockHeight;
         }
 
-        public void SetScaleFactor(
-            int scaleFactorX,
-            int scaleFactorY
+        //public void SetBlockSize(
+        //    uint blockWidth,
+        //    uint blockHeight
+        //    )
+        //{
+        //    if (blockWidth == 0)
+        //    {
+        //        throw new ArgumentException("blockWidth == 0");
+        //    }
+        //    if (blockHeight == 0)
+        //    {
+        //        throw new ArgumentException("blockHeight == 0");
+        //    }
+        //    if (Math.Abs(Math.Log(blockWidth, 2.0) % 1) > double.Epsilon)
+        //    {
+        //        throw new ArgumentException("BlockWidth must be power of two!");
+        //    }
+        //    if (Math.Abs(Math.Log(blockHeight, 2.0) % 1) > double.Epsilon)
+        //    {
+        //        throw new ArgumentException("BlockHeight must be power of two!");
+        //    }
+
+        //    BlockWidth = blockWidth;
+        //    BlockHeight = blockHeight;
+        //}
+
+        public void SetScaleFactorX(
+            int scaleFactorX
             )
         {
             ScaleFactorX = scaleFactorX;
+        }
+
+        public void SetScaleFactorY(
+            int scaleFactorY
+            )
+        {
             ScaleFactorY = scaleFactorY;
         }
+
+        
+        //public void SetScaleFactor(
+        //    int scaleFactorX,
+        //    int scaleFactorY
+        //    )
+        //{
+        //    ScaleFactorX = scaleFactorX;
+        //    ScaleFactorY = scaleFactorY;
+        //}
 
         public void SetTimeoutBetweenFrames(
             TimeSpan timeoutBetweenFrames

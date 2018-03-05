@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -54,7 +55,6 @@ namespace Frdp.Server.Windows
             this.DataContext = viewModel;
 
             InitializeComponent();
-
         }
 
         private void UIElement_OnMouseMove(object sender, MouseEventArgs e)
@@ -207,6 +207,12 @@ namespace Frdp.Server.Windows
         }
 
 
+
+        private void RdpWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            SendHwndToViewModel();
+        }
+
         private void CreateInterceptor()
         {
             var newInterceptor = _interceptorFactory.CreateInterceptor();
@@ -216,6 +222,22 @@ namespace Frdp.Server.Windows
             if (oldInterceptor != null)
             {
                 oldInterceptor.Dispose();
+            }
+        }
+
+        private void RdpWindow_OnLocationChanged(object sender, EventArgs e)
+        {
+            SendHwndToViewModel();
+        }
+
+        private void SendHwndToViewModel()
+        {
+            var wih = new WindowInteropHelper(this);
+            IntPtr hWnd = wih.Handle;
+            var vm = this.DataContext as RdpViewModel;
+            if (vm != null)
+            {
+                vm.RecalculateMaxSizes(hWnd);
             }
         }
 

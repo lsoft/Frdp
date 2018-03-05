@@ -112,6 +112,7 @@
     <Compile Include="Command\StartFileTaskCommand.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="ILogger.cs" />
+    <Compile Include="InvokeHelper.cs" />
     <Compile Include="Settings\ClientSettings.cs" />
     <Compile Include="Settings\IClientSettingsContainer.cs" />
     <Compile Include="Settings\IClientSettingsProvider.cs" />
